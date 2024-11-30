@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv5xkvfcxo1e5"]
+
+[ext_resource type="Texture2D" uid="uid://jj4spsb4in5y" path="res://FUZ/player.png" id="1_nepr3"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nepr3")
