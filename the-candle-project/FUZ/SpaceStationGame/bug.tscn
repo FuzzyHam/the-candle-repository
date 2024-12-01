@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://d561eip6nwfa"]
+
+[ext_resource type="Texture2D" uid="uid://bwdo0qlf61bg6" path="res://FUZ/SpaceStationGame/bug-run-1.png" id="1_ffxih"]
+[ext_resource type="Script" path="res://FUZ/SpaceStationGame/bug.gd" id="1_xd805"]
+[ext_resource type="Texture2D" uid="uid://btwkn7e35n023" path="res://FUZ/SpaceStationGame/bug-run-2.png" id="2_68ilv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nxxo"]
+size = Vector2(38, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4uyyx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ffxih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_68ilv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Bug" type="CharacterBody2D" groups=["Bugs"]]
+z_index = 4
+scale = Vector2(1.5, 1.5)
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_xd805")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 2)
+shape = SubResource("RectangleShape2D_0nxxo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4uyyx")
+autoplay = "default"
+frame_progress = 0.997993
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-22, 0)
+collision_mask = 16
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+collision_mask = 16
+
+[node name="LifeSpan" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="LifeSpan" to="." method="_on_life_span_timeout"]

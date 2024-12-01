@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jj4spsb4in5y"
-path="res://.godot/imported/player.png-ea3bee249a41bfd5582d047756cb6fac.ctex"
+uid="uid://btwkn7e35n023"
+path="res://.godot/imported/bug-run-2.png-ec95232545a8e2f3dcf82972be55edb3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://FUZ/player.png"
-dest_files=["res://.godot/imported/player.png-ea3bee249a41bfd5582d047756cb6fac.ctex"]
+source_file="res://FUZ/SpaceStationGame/bug-run-2.png"
+dest_files=["res://.godot/imported/bug-run-2.png-ec95232545a8e2f3dcf82972be55edb3.ctex"]
 
 [params]
 

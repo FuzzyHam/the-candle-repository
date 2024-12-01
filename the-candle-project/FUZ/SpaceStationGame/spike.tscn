@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://wodv36f8nxae"]
+
+[ext_resource type="Texture2D" uid="uid://cp4gqnctllr6b" path="res://FUZ/SpaceStationGame/spike.png" id="1_eb2yh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odjxu"]
+size = Vector2(20, 41)
+
+[node name="Spike" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("1_eb2yh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 10.5)
+shape = SubResource("RectangleShape2D_odjxu")

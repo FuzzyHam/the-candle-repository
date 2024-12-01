@@ -1,0 +1,271 @@
+[gd_scene load_steps=27 format=3 uid="uid://vwnfdvurumlv"]
+
+[ext_resource type="Script" path="res://FUZ/SpaceStationGame/game.gd" id="1_ihp1m"]
+[ext_resource type="PackedScene" uid="uid://cs27pyiu450qi" path="res://FUZ/SpaceStationGame/player.tscn" id="1_y15ks"]
+[ext_resource type="Texture2D" uid="uid://dlieqfyvmu51e" path="res://FUZ/SpaceStationGame/bg-fixed.png" id="4_qo6e1"]
+[ext_resource type="PackedScene" uid="uid://caxkjr5f112ac" path="res://FUZ/SpaceStationGame/generator.tscn" id="5_pe7f2"]
+[ext_resource type="Script" path="res://FUZ/SpaceStationGame/health.gd" id="6_fp886"]
+[ext_resource type="PackedScene" uid="uid://bx7b8ixxmdvur" path="res://FUZ/SpaceStationGame/game_area.tscn" id="7_inata"]
+[ext_resource type="Texture2D" uid="uid://c00ytsd1ohj5a" path="res://FUZ/SpaceStationGame/asterioid-warning.png" id="9_6l0ml"]
+[ext_resource type="Texture2D" uid="uid://dn2opomtu4nkm" path="res://FUZ/SpaceStationGame/alert.png" id="10_a6b4s"]
+[ext_resource type="Texture2D" uid="uid://yt1swlbwafxj" path="res://FUZ/SpaceStationGame/alert-off.png" id="11_ox7p5"]
+[ext_resource type="Texture2D" uid="uid://d0amtfq80uimi" path="res://FUZ/SpaceStationGame/spike-warning.png" id="12_6wvhr"]
+[ext_resource type="Texture2D" uid="uid://dg6vdisy6rhsn" path="res://FUZ/SpaceStationGame/laser-warning.png" id="13_2itqt"]
+[ext_resource type="Texture2D" uid="uid://bcac7h3mkyqb2" path="res://FUZ/SpaceStationGame/bug-warning.png" id="14_povf7"]
+[ext_resource type="PackedScene" uid="uid://c5af3oae071nf" path="res://FUZ/SpaceStationGame/laser.tscn" id="15_fwwil"]
+[ext_resource type="AudioStream" uid="uid://0h0jfgsy1igl" path="res://FUZ/SpaceStationGame/space-pop.mp3" id="16_557go"]
+[ext_resource type="FontFile" uid="uid://drigxcxkq8tne" path="res://FUZ/SpaceStationGame/PixelOperator8.ttf" id="16_x3x1x"]
+[ext_resource type="AudioStream" uid="uid://cmkie8tffc330" path="res://FUZ/SpaceStationGame/hitHurt.wav" id="17_2qmep"]
+[ext_resource type="Texture2D" uid="uid://b2xmpxmt2sfks" path="res://FUZ/SpaceStationGame/vent.png" id="18_3d0jd"]
+[ext_resource type="AudioStream" uid="uid://dj035xvkebs50" path="res://FUZ/SpaceStationGame/explosion.wav" id="18_al5jr"]
+[ext_resource type="AudioStream" uid="uid://c8txr2ktwp3hj" path="res://FUZ/SpaceStationGame/powerUp.wav" id="19_o116n"]
+[ext_resource type="AudioStream" uid="uid://blg653yesdo7b" path="res://FUZ/SpaceStationGame/pickupCoin.wav" id="20_f4eiv"]
+[ext_resource type="AudioStream" uid="uid://bycisbw6a6yg1" path="res://FUZ/SpaceStationGame/laserShoot.wav" id="21_nt38x"]
+[ext_resource type="AudioStream" uid="uid://c3shv4x08tgd8" path="res://FUZ/SpaceStationGame/click.wav" id="22_8qc6d"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q2p5d"]
+distance = -14.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0nooh"]
+texture = ExtResource("4_qo6e1")
+texture_region_size = Vector2i(65, 65)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32.5, -32.5, 32.5, -32.5, 32.5, 32.5, -32.5, 32.5)
+0:0/0/custom_data_0 = true
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32.5, -32.5, 32.5, -32.5, 32.5, 32.5, -32.5, 32.5)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32.5, -32.5, 32.5, -32.5, 32.5, 32.5, -32.5, 32.5)
+2:0/0/custom_data_1 = true
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32.5, -32.5, 32.5, -32.5, 32.5, 32.5, -32.5, 32.5)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32.5, -32.5, 32.5, -32.5, 32.5, 32.5, -32.5, 32.5)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32.5, -32.5, 32.5, -32.5, 32.5, 32.5, -32.5, 32.5)
+0:1/0 = 0
+0:1/0/z_index = -10
+1:1/0 = 0
+1:1/0/z_index = -10
+2:1/0 = 0
+2:1/0/z_index = -10
+3:1/0 = 0
+3:1/0/z_index = -10
+
+[sub_resource type="TileSet" id="TileSet_gxsol"]
+tile_size = Vector2i(65, 65)
+physics_layer_0/collision_layer = 17
+custom_data_layer_0/name = "ground_tile"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "spike_tile"
+custom_data_layer_1/type = 1
+sources/0 = SubResource("TileSetAtlasSource_0nooh")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vl5hm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_a6b4s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ox7p5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ihp1m")
+
+[node name="GameArea" parent="." instance=ExtResource("7_inata")]
+
+[node name="Player" parent="." instance=ExtResource("1_y15ks")]
+z_index = 1
+position = Vector2(200, 412)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-2, 70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2, 403)
+shape = SubResource("WorldBoundaryShape2D_q2p5d")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_gxsol")
+format = 2
+layer_0/tile_data = PackedInt32Array(65539, 65536, 0, 65538, 262144, 0, 65537, 0, 1, 65536, 0, 1, 131071, 0, 1, 131070, 0, 1, 131069, 196608, 0, 131068, 65536, 0, 131067, 65536, 0, 131066, 0, 1, 65540, 65536, 0, 131065, 0, 1, 65541, 0, 1, 65542, 0, 1, 65529, 0, 1, 65530, 0, 1, 65531, 0, 0, 65532, 0, 0, 65533, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 0, 4, 0, 0, 5, 0, 1, 6, 0, 1, -65530, 0, 1, -65531, 0, 1, -65532, 0, 1, -65533, 0, 1, -65534, 0, 1, -65535, 0, 1, -65536, 0, 1, -1, 0, 1, -2, 0, 1, -3, 0, 1, -4, 0, 1, -5, 0, 1, -6, 0, 1, -7, 0, 1, -65543, 65536, 1, -65542, 131072, 1, -65541, 131072, 1, -65540, 131072, 1, -65539, 196608, 1, -65538, 0, 1, -65537, 65536, 0, -131072, 65536, 0, -131071, 0, 1, -131070, 65536, 1, -131069, 131072, 1, -131068, 131072, 1, -131067, 131072, 1, -131066, 196608, 1, 458765, 65536, 0, 458764, 327680, 0, 458763, 327680, 0, 458762, 327680, 0, 458761, 327680, 0, 458760, 0, 0, 458759, 0, 0, 458758, 0, 0, 458757, 0, 0, 458756, 0, 0, 458755, 0, 0, 458754, 0, 0, 458753, 0, 0, 458752, 0, 0, 524287, 0, 0, 524286, 0, 0, 524285, 0, 0, 524284, 0, 0, 524283, 0, 0, 524282, 0, 0, 524281, 0, 0, 524280, 0, 0, 524279, 0, 0, 524278, 327680, 0, 524277, 327680, 0, 524276, 327680, 0, 524275, 327680, 0, 458739, 0, 1, 393203, 0, 1, 524274, 65536, 0, 458738, 65536, 0, 393202, 65536, 0, 327666, 65536, 0, 262130, 65536, 0, 196594, 65536, 0, 196595, 0, 1, 131059, 0, 1, 131058, 65536, 0, 65522, 65536, 0, -14, 65536, 0, -65550, 65536, 0, -131086, 65536, 0, -196622, 65536, 0, -262158, 65536, 0, -327694, 65536, 0, -393230, 65536, 0, -458766, 65536, 0, -458765, 65536, 0, -458764, 65536, 0, -458763, 65536, 0, -458762, 65536, 0, -458761, 65536, 0, -458760, 65536, 0, -458759, 65536, 0, -458758, 65536, 0, -458757, 65536, 0, -458756, 65536, 0, -458755, 65536, 0, -458754, 65536, 0, -458753, 65536, 0, -524288, 65536, 0, -524287, 65536, 0, -524286, 65536, 0, -524285, 65536, 0, -524284, 65536, 0, -524283, 65536, 0, -524282, 65536, 0, -524281, 65536, 0, -524280, 65536, 0, -524279, 65536, 0, -524278, 65536, 0, -524277, 65536, 0, -524276, 65536, 0, -524275, 65536, 0, -458739, 65536, 0, -393203, 65536, 0, -327667, 65536, 0, -262131, 65536, 0, -196595, 65536, 0, -131059, 65536, 0, -65523, 65536, 0, 13, 65536, 0, 65549, 65536, 0, 131085, 65536, 0, 196621, 65536, 0, 262157, 65536, 0, 327693, 65536, 0, 393229, 65536, 0, 327667, 0, 0, 262131, 0, 1, 65523, 0, 1, -13, 0, 1, -65549, 0, 1, -131085, 0, 0, -196621, 0, 1, -262157, 0, 1, -327693, 0, 1, -393229, 0, 1, -393228, 0, 1, -393227, 0, 1, -393226, 0, 1, -393225, 0, 1, -393224, 0, 1, -393223, 0, 1, -393222, 0, 1, -393221, 0, 1, -393220, 0, 1, -393219, 0, 1, -393218, 0, 1, -393217, 65536, 0, -458752, 65536, 0, -458751, 0, 1, -458750, 0, 1, -458749, 0, 1, -458748, 0, 1, -458747, 0, 1, -458746, 0, 1, -458745, 0, 1, -458744, 0, 1, -458743, 0, 1, -458742, 0, 1, -458741, 0, 1, -458740, 0, 1, -393204, 0, 1, -393205, 0, 1, -393206, 0, 1, -393207, 0, 1, -393208, 0, 1, -393209, 0, 1, -393210, 0, 1, -393211, 0, 1, -393212, 0, 1, -393213, 0, 1, -393214, 0, 1, -393215, 0, 1, -393216, 65536, 0, -327681, 65536, 0, -327682, 0, 1, -327683, 0, 1, -327684, 0, 1, -327685, 0, 1, -327686, 0, 1, -327687, 0, 1, -327688, 0, 1, -327689, 0, 1, -327690, 0, 1, -327691, 0, 1, -327692, 0, 1, -262156, 0, 1, -262155, 0, 1, -262154, 0, 1, -262153, 0, 1, -262152, 0, 1, -262151, 0, 1, -262150, 0, 1, -262149, 0, 1, -262148, 0, 1, -262147, 0, 1, -262146, 0, 1, -262145, 65536, 0, -327680, 65536, 0, -327679, 0, 1, -327678, 0, 1, -327677, 0, 1, -327676, 0, 1, -327675, 0, 1, -327674, 0, 1, -327673, 0, 1, -327672, 0, 1, -327671, 0, 1, -327670, 0, 1, -327669, 0, 1, -327668, 0, 1, -262132, 0, 1, -262133, 0, 1, -262134, 0, 1, -262135, 0, 1, -262136, 0, 1, -262137, 196608, 0, -262138, 0, 0, -262139, 0, 0, -262140, 0, 0, -262141, 0, 0, -262142, 327680, 0, -262143, 327680, 0, -262144, 65536, 0, -196609, 65536, 0, -196610, 327680, 0, -196611, 327680, 0, -196612, 0, 0, -196613, 0, 0, -196614, 0, 0, -196615, 0, 0, -196616, 262144, 0, -196617, 0, 1, -196618, 0, 1, -196619, 0, 1, -196620, 0, 1, -131084, 196608, 0, -65548, 0, 1, -12, 0, 1, 65524, 0, 1, 131060, 0, 1, 196596, 0, 1, 262132, 0, 1, 327668, 0, 0, 393204, 0, 1, 458740, 0, 1, 458741, 0, 1, 458742, 0, 1, 458743, 0, 1, 458744, 0, 1, 458745, 0, 1, 458746, 0, 1, 458747, 0, 1, 458748, 0, 1, 458749, 0, 1, 458750, 0, 1, 458751, 0, 1, 393216, 0, 1, 393217, 0, 1, 393218, 0, 1, 393219, 0, 1, 393220, 0, 1, 393221, 0, 1, 393222, 0, 1, 393223, 0, 1, 393224, 0, 1, 393225, 0, 1, 393226, 0, 1, 393227, 0, 1, 393228, 0, 1, 327692, 0, 1, 262156, 0, 0, 196620, 0, 1, 131084, 0, 1, 65548, 0, 1, 12, 0, 1, -65524, 0, 1, -131060, 0, 1, -196596, 0, 0, 196610, 65536, 0, 131074, 65536, 0, 131073, 0, 1, 131072, 0, 1, 196607, 0, 1, 196606, 0, 1, 196605, 65536, 0, 196604, 65536, 0, 196603, 65536, 0, 196602, 0, 1, 196601, 0, 1, 196600, 0, 1, 131064, 0, 1, 65528, 0, 1, -8, 0, 1, -65544, 0, 1, -131080, 0, 1, -131081, 0, 1, -131082, 0, 1, -131083, 0, 1, -65547, 0, 1, -11, 0, 1, 65525, 262144, 0, 131061, 0, 1, 196597, 0, 1, 262133, 0, 1, 327669, 196608, 0, 393205, 0, 1, 393206, 0, 1, 327670, 0, 1, 262134, 0, 1, 196598, 0, 1, 131062, 0, 1, 65526, 0, 0, -10, 0, 1, -65546, 0, 1, -65545, 0, 1, -9, 0, 1, 65527, 196608, 0, 131063, 0, 1, 196599, 0, 1, 262135, 0, 1, 327671, 0, 1, 393207, 0, 1, 393208, 0, 1, 327672, 0, 1, 262136, 262144, 0, 262137, 0, 0, 327673, 0, 1, 393209, 65536, 1, 393210, 131072, 1, 327674, 0, 1, 262138, 0, 0, 262139, 65536, 0, 327675, 0, 1, 393211, 131072, 1, 393212, 131072, 1, 327676, 0, 1, 262140, 65536, 0, 262141, 65536, 0, 327677, 0, 1, 393213, 131072, 1, 393214, 131072, 1, 327678, 0, 1, 262142, 0, 0, 262143, 0, 0, 327679, 0, 1, 393215, 131072, 1, 327680, 131072, 1, 262144, 0, 1, 196608, 0, 0, 196609, 0, 0, 262145, 0, 1, 327681, 131072, 1, 327682, 131072, 1, 262146, 0, 1, 262147, 0, 1, 196611, 65536, 0, 131075, 65536, 0, 131076, 65536, 0, 196612, 65536, 0, 262148, 0, 1, 327684, 131072, 1, 327683, 131072, 1, 327685, 131072, 1, 262149, 0, 1, 196613, 0, 0, 131077, 0, 1, 131078, 0, 1, 196614, 0, 0, 262150, 0, 1, 327686, 196608, 1, 327687, 0, 1, 262151, 0, 1, 196615, 196608, 0, 131079, 0, 1, 65543, 0, 1, 7, 0, 1, -65529, 0, 1, -131065, 0, 1, -196601, 0, 1, -196602, 0, 1, -196603, 0, 1, -196604, 0, 1, -196605, 0, 1, -196606, 0, 1, -196607, 0, 1, -196608, 65536, 0, -131073, 65536, 0, -131074, 0, 1, -131075, 0, 1, -131076, 0, 1, -131077, 0, 1, -131078, 0, 1, -131079, 0, 1, -196600, 0, 1, -131064, 0, 1, -65528, 0, 1, 8, 262144, 0, 65544, 0, 1, 131080, 0, 1, 196616, 0, 1, 262152, 0, 1, 327688, 0, 1, 327689, 0, 1, 262153, 0, 1, 196617, 0, 1, 131081, 0, 1, 65545, 0, 1, 9, 0, 0, -65527, 0, 1, -131063, 0, 1, -196599, 0, 1, -196598, 0, 1, -131062, 0, 1, -65526, 0, 1, 10, 196608, 0, 65546, 0, 1, 131082, 0, 1, 196618, 0, 1, 262154, 262144, 0, 327690, 0, 1, 327691, 0, 1, 262155, 0, 0, 196619, 0, 1, 131083, 0, 1, 65547, 0, 1, 11, 0, 1, -65525, 0, 1, -131061, 0, 1, -196597, 262144, 0)
+
+[node name="Generator" parent="." instance=ExtResource("5_pe7f2")]
+position = Vector2(777, 392)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[node name="Generator2" parent="." instance=ExtResource("5_pe7f2")]
+position = Vector2(-780, 390)
+
+[node name="Generator3" parent="." instance=ExtResource("5_pe7f2")]
+position = Vector2(129, -323)
+
+[node name="Generator4" parent="." instance=ExtResource("5_pe7f2")]
+position = Vector2(-130, -325)
+
+[node name="Health" type="Marker2D" parent="."]
+z_index = 15
+position = Vector2(-829, -445)
+script = ExtResource("6_fp886")
+
+[node name="AsteriodSpawn" type="Timer" parent="."]
+
+[node name="EventTimer" type="Timer" parent="."]
+wait_time = 12.0
+autostart = true
+
+[node name="Spikes" type="Node" parent="."]
+
+[node name="SpikeLife" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="EventWarning" type="Marker2D" parent="."]
+z_index = 15
+position = Vector2(800, -434)
+scale = Vector2(2, 2)
+
+[node name="Alert" type="AnimatedSprite2D" parent="EventWarning"]
+position = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_vl5hm")
+autoplay = "default"
+frame_progress = 0.255197
+
+[node name="Label" type="Label" parent="EventWarning"]
+visible = false
+offset_left = -60.5
+offset_top = 57.5
+offset_right = -20.5
+offset_bottom = 80.5
+text = "hi"
+
+[node name="Warnings" type="Marker2D" parent="EventWarning"]
+position = Vector2(1, 3.5)
+
+[node name="Spikes" type="Sprite2D" parent="EventWarning/Warnings"]
+position = Vector2(41.5, -117.5)
+texture = ExtResource("12_6wvhr")
+
+[node name="Asteriods" type="Sprite2D" parent="EventWarning/Warnings"]
+position = Vector2(-39, -113.5)
+texture = ExtResource("9_6l0ml")
+
+[node name="Lasers" type="Sprite2D" parent="EventWarning/Warnings"]
+position = Vector2(-129.5, -116)
+texture = ExtResource("13_2itqt")
+
+[node name="Bugs" type="Sprite2D" parent="EventWarning/Warnings"]
+position = Vector2(134.5, -114)
+texture = ExtResource("14_povf7")
+
+[node name="Lasers" type="Node" parent="."]
+
+[node name="Laser" parent="Lasers" instance=ExtResource("15_fwwil")]
+position = Vector2(682, -161)
+
+[node name="Laser5" parent="Lasers" instance=ExtResource("15_fwwil")]
+position = Vector2(-554, 227)
+
+[node name="Laser2" parent="Lasers" instance=ExtResource("15_fwwil")]
+position = Vector2(-682, -160)
+rotation = 0.0
+
+[node name="Laser6" parent="Lasers" instance=ExtResource("15_fwwil")]
+position = Vector2(553, 227)
+rotation = 0.0
+
+[node name="Laser3" parent="Lasers" instance=ExtResource("15_fwwil")]
+position = Vector2(-424, -422)
+rotation = 1.5708
+
+[node name="Laser4" parent="Lasers" instance=ExtResource("15_fwwil")]
+position = Vector2(423, -423)
+rotation = 1.5708
+
+[node name="LaserLife" type="Timer" parent="."]
+wait_time = 12.5
+one_shot = true
+
+[node name="ProgressLabel" type="Label" parent="."]
+z_index = 20
+offset_left = -128.0
+offset_top = -478.0
+offset_right = 127.0
+offset_bottom = -417.0
+theme_override_colors/font_color = Color(0.074, 0.74, 0, 1)
+theme_override_fonts/font = ExtResource("16_x3x1x")
+theme_override_font_sizes/font_size = 60
+text = "1 / 15"
+
+[node name="WinLabel" type="Label" parent="."]
+visible = false
+z_index = 20
+offset_left = -182.0
+offset_top = -32.0
+offset_right = 276.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0.074, 0.74, 0, 1)
+theme_override_fonts/font = ExtResource("16_x3x1x")
+theme_override_font_sizes/font_size = 60
+text = "YOU WIN!!!"
+
+[node name="BugTimer" type="Timer" parent="."]
+wait_time = 3.5
+
+[node name="Vents" type="Node" parent="."]
+
+[node name="Vent" type="Sprite2D" parent="Vents" groups=["LeftVent"]]
+position = Vector2(-226, -424)
+texture = ExtResource("18_3d0jd")
+
+[node name="Vent2" type="Sprite2D" parent="Vents" groups=["RightVent"]]
+position = Vector2(229, -422)
+texture = ExtResource("18_3d0jd")
+
+[node name="Vent3" type="Sprite2D" parent="Vents" groups=["RightVent"]]
+position = Vector2(-813, -356)
+texture = ExtResource("18_3d0jd")
+
+[node name="Vent4" type="Sprite2D" parent="Vents" groups=["LeftVent"]]
+position = Vector2(814, -356)
+texture = ExtResource("18_3d0jd")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_557go")
+autoplay = true
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_2qmep")
+
+[node name="OverheatSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_al5jr")
+
+[node name="CooldownSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_o116n")
+
+[node name="LifeSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_f4eiv")
+
+[node name="LaserSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_nt38x")
+
+[node name="SpikeSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("22_8qc6d")
+
+[connection signal="body_exited" from="GameArea" to="." method="_on_game_area_body_exited"]
+[connection signal="hurt" from="Player" to="." method="_on_player_hurt"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AsteriodSpawn" to="." method="_on_asteriod_spawn_timeout"]
+[connection signal="timeout" from="EventTimer" to="." method="_on_event_timer_timeout"]
+[connection signal="timeout" from="SpikeLife" to="." method="_on_spike_life_timeout"]
+[connection signal="timeout" from="LaserLife" to="." method="_on_laser_life_timeout"]
+[connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]
