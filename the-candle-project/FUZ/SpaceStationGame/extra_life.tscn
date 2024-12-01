@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkn8txwlccvm7"]
+
+[ext_resource type="Texture2D" uid="uid://c28odvmfglg0v" path="res://FUZ/SpaceStationGame/extra-life.png" id="1_rwxpo"]
+[ext_resource type="Script" path="res://FUZ/SpaceStationGame/extra_life.gd" id="1_vxsva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tyb76"]
+size = Vector2(31, 42)
+
+[node name="ExtraLife" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_vxsva")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rwxpo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 4)
+shape = SubResource("RectangleShape2D_tyb76")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

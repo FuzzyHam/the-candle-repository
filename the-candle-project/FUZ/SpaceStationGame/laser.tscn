@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5af3oae071nf"]
+
+[ext_resource type="Texture2D" uid="uid://dremkjfvoa7gb" path="res://FUZ/SpaceStationGame/laser-fire-1.png" id="1_0bbet"]
+[ext_resource type="Script" path="res://FUZ/SpaceStationGame/laser.gd" id="1_12c5x"]
+[ext_resource type="Texture2D" uid="uid://co04p8guvlbmy" path="res://FUZ/SpaceStationGame/laser-fire-2.png" id="2_c7ons"]
+[ext_resource type="Texture2D" uid="uid://deiua36dlmyox" path="res://FUZ/SpaceStationGame/laser.png" id="3_83pj7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uh4kx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0bbet")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c7ons")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_83pj7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_igniy"]
+size = Vector2(15, 64)
+
+[sub_resource type="Gradient" id="Gradient_e1n4k"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.727771, 0.683716, 1, 0.991657, 0, 0.202968, 1, 0.988235, 0, 0, 1)
+
+[node name="Laser" type="StaticBody2D"]
+rotation = 3.14159
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_12c5x")
+
+[node name="LaserSpawner" type="AnimatedSprite2D" parent="."]
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_uh4kx")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-24.5, 0)
+shape = SubResource("RectangleShape2D_igniy")
+
+[node name="Reload" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="HurtRaycast" type="RayCast2D" parent="."]
+position = Vector2(-25, 0)
+enabled = false
+target_position = Vector2(150, 0)
+collision_mask = 2
+
+[node name="CollideRaycast" type="RayCast2D" parent="."]
+position = Vector2(-25, 0)
+target_position = Vector2(2000, 0)
+collision_mask = 16
+
+[node name="BeamLifeSpan" type="Timer" parent="."]
+one_shot = true
+
+[node name="Beam" type="Line2D" parent="."]
+z_index = 5
+position = Vector2(-25, 0)
+points = PackedVector2Array(0, 0, 200, 0)
+width = 3.0
+default_color = Color(1, 0, 0.156863, 1)
+gradient = SubResource("Gradient_e1n4k")
+
+[connection signal="timeout" from="Reload" to="." method="_on_reload_timeout"]
+[connection signal="timeout" from="BeamLifeSpan" to="." method="_on_beam_life_span_timeout"]

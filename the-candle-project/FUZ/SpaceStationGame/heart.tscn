@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj2si7fkoed7o"]
+
+[ext_resource type="Texture2D" uid="uid://d0elkayye3wlc" path="res://FUZ/SpaceStationGame/heart.png" id="1_5jcjx"]
+
+[node name="Heart" type="Marker2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5jcjx")
