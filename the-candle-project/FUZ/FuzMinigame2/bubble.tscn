@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk1a5w7mflksl"]
+
+[ext_resource type="Texture2D" uid="uid://btybt2dqijnry" path="res://FUZ/FuzMinigame2/bubble-1.png" id="1_1mk3n"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame2/bubble.gd" id="1_uyr5c"]
+[ext_resource type="Texture2D" uid="uid://bdo4fl78oraxo" path="res://FUZ/FuzMinigame2/bubble-2.png" id="2_68js4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gg0ts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1mk3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_68js4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oxjhp"]
+radius = 10.0499
+
+[node name="Bubble" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_uyr5c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gg0ts")
+autoplay = "default"
+frame_progress = 0.545923
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oxjhp")
+
+[node name="LifeSpan1" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="LifeSpan2" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="LifeSpan1" to="." method="_on_life_span_1_timeout"]
+[connection signal="timeout" from="LifeSpan2" to="." method="_on_life_span_2_timeout"]
