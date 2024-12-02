@@ -1,0 +1,232 @@
+[gd_scene load_steps=7 format=3 uid="uid://bih15aum2a4qk"]
+
+[ext_resource type="Script" path="res://MAIN/combined_sprites.gd" id="1_mgyyw"]
+[ext_resource type="Texture2D" uid="uid://bo0fbecifcwae" path="res://MAIN/CharacterCreator/Skin1.png" id="2_7t4ct"]
+[ext_resource type="Texture2D" uid="uid://drwc0p0w0w3mo" path="res://MAIN/CharacterCreator/Shape1.png" id="8_wqon8"]
+[ext_resource type="PackedScene" uid="uid://demy0hq6yt78r" path="res://MAIN/CharacterCreator/characterbutton.tscn" id="10_shy0e"]
+[ext_resource type="Texture2D" uid="uid://js0uc6aaqe6a" path="res://MAIN/CharacterCreator/CharacterBackground.png" id="11_r8kwa"]
+
+[sub_resource type="Theme" id="Theme_k1jut"]
+default_font_size = 48
+
+[node name="CreatorScene" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CombinedSprites" type="Node2D" parent="."]
+position = Vector2(225, 250)
+scale = Vector2(8, 8)
+script = ExtResource("1_mgyyw")
+
+[node name="Skin" type="Sprite2D" parent="CombinedSprites"]
+texture = ExtResource("2_7t4ct")
+
+[node name="Shape" type="Sprite2D" parent="CombinedSprites"]
+texture = ExtResource("8_wqon8")
+
+[node name="Mouth" type="Sprite2D" parent="CombinedSprites"]
+
+[node name="Nose" type="Sprite2D" parent="CombinedSprites"]
+
+[node name="Eyes" type="Sprite2D" parent="CombinedSprites"]
+
+[node name="Eyebrows" type="Sprite2D" parent="CombinedSprites"]
+
+[node name="Hair" type="Sprite2D" parent="CombinedSprites"]
+
+[node name="Accessory" type="Sprite2D" parent="CombinedSprites"]
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="ShapeLabel" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 64.0
+offset_right = 754.0
+offset_bottom = 104.0
+text = "Shape"
+
+[node name="MouthLabel" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 128.0
+offset_right = 754.0
+offset_bottom = 168.0
+text = "Mouth"
+
+[node name="NoseLabel" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 192.0
+offset_right = 528.0
+offset_bottom = 216.0
+text = "Nose"
+
+[node name="EyesLabel" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 256.0
+offset_right = 552.0
+offset_bottom = 280.0
+text = "Eyes"
+
+[node name="EyebrowsLabel" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 320.0
+offset_right = 607.0
+offset_bottom = 350.0
+text = "Eyebrows"
+
+[node name="Hair" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 384.0
+offset_right = 607.0
+offset_bottom = 414.0
+text = "Hair
+"
+
+[node name="Accessory" type="RichTextLabel" parent="Labels"]
+offset_left = 480.0
+offset_top = 448.0
+offset_right = 607.0
+offset_bottom = 478.0
+text = "Accessory"
+
+[node name="Buttons" type="Node" parent="."]
+
+[node name="Button" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 88.0
+offset_right = 540.0
+offset_bottom = 119.0
+category = "Shape"
+
+[node name="Button2" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 88.0
+offset_right = 604.0
+offset_bottom = 119.0
+text = "Right"
+dir = true
+category = "Shape"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button3" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 152.0
+offset_right = 604.0
+offset_bottom = 183.0
+text = "Right"
+dir = true
+category = "Mouth"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 152.0
+offset_right = 540.0
+offset_bottom = 183.0
+category = "Mouth"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button5" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 216.0
+offset_right = 540.0
+offset_bottom = 247.0
+category = "Nose"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button6" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 216.0
+offset_right = 604.0
+offset_bottom = 247.0
+text = "Right"
+dir = true
+category = "Nose"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button7" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 280.0
+offset_right = 540.0
+offset_bottom = 311.0
+category = "Eyes"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button8" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 344.0
+offset_right = 540.0
+offset_bottom = 375.0
+category = "Eyebrows"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button9" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 344.0
+offset_right = 604.0
+offset_bottom = 375.0
+text = "Right"
+dir = true
+category = "Eyebrows"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button10" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 280.0
+offset_right = 604.0
+offset_bottom = 311.0
+text = "Right"
+dir = true
+category = "Eyes"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button11" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 408.0
+offset_right = 540.0
+offset_bottom = 439.0
+category = "Hair"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button12" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 408.0
+offset_right = 604.0
+offset_bottom = 439.0
+text = "Right"
+dir = true
+category = "Hair"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button13" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 480.0
+offset_top = 472.0
+offset_right = 540.0
+offset_bottom = 503.0
+category = "Accessory"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button14" parent="Buttons" instance=ExtResource("10_shy0e")]
+offset_left = 544.0
+offset_top = 472.0
+offset_right = 604.0
+offset_bottom = 503.0
+text = "Right"
+dir = true
+category = "Accessory"
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(576.871, 322.938)
+scale = Vector2(55.0365, 36.1181)
+texture = ExtResource("11_r8kwa")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 480.0
+offset_right = 1152.0
+offset_bottom = 72.0
+theme = SubResource("Theme_k1jut")
+text = "EDIT YOUR CHARACTER!"
+
+[connection signal="sprite_change" from="CombinedSprites" to="CombinedSprites" method="_on_sprite_change"]

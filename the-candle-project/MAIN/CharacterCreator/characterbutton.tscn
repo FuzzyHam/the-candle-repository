@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://demy0hq6yt78r"]
+
+[ext_resource type="Script" path="res://MAIN/CharacterCreator/Button.gd" id="1_5d7tb"]
+
+[node name="Button" type="Button"]
+offset_left = 477.0
+offset_top = 121.0
+offset_right = 537.0
+offset_bottom = 152.0
+text = "Left"
+script = ExtResource("1_5d7tb")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
