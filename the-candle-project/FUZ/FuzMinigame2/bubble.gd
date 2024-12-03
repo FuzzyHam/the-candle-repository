@@ -22,6 +22,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
+	explode.emit(self)
+	area.queue_free()
 	queue_free()
 
 func _on_life_span_1_timeout() -> void:
@@ -29,5 +31,6 @@ func _on_life_span_1_timeout() -> void:
 
 
 func _on_life_span_2_timeout() -> void:
-	explode.emit()
+	hurt.emit()
+	explode.emit(self)
 	queue_free()
