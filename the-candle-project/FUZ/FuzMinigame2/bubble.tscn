@@ -1,20 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk1a5w7mflksl"]
+[gd_scene load_steps=10 format=3 uid="uid://dk1a5w7mflksl"]
 
-[ext_resource type="Texture2D" uid="uid://btybt2dqijnry" path="res://FUZ/FuzMinigame2/bubble-1.png" id="1_1mk3n"]
 [ext_resource type="Script" path="res://FUZ/FuzMinigame2/bubble.gd" id="1_uyr5c"]
-[ext_resource type="Texture2D" uid="uid://bdo4fl78oraxo" path="res://FUZ/FuzMinigame2/bubble-2.png" id="2_68js4"]
+[ext_resource type="Texture2D" uid="uid://cjvwbvbhr0yd8" path="res://FUZ/FuzMinigame2/bubble-base-1.png" id="2_pnjwt"]
+[ext_resource type="Texture2D" uid="uid://bmemjteyx2pkn" path="res://FUZ/FuzMinigame2/bubble-base-2.png" id="3_si0pi"]
+[ext_resource type="Texture2D" uid="uid://cpjwya1vlljw3" path="res://FUZ/FuzMinigame2/flower-1.png" id="4_a0ech"]
+[ext_resource type="Texture2D" uid="uid://dlu04qn2njven" path="res://FUZ/FuzMinigame2/flower-2.png" id="5_3a117"]
+[ext_resource type="Texture2D" uid="uid://bebg1gw0s7sqo" path="res://FUZ/FuzMinigame2/flower-3.png" id="6_os5ry"]
+[ext_resource type="Texture2D" uid="uid://cm662ewr1d3s4" path="res://FUZ/FuzMinigame2/flower-4.png" id="7_0vds3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gg0ts"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1mk3n")
+"texture": ExtResource("2_pnjwt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_68js4")
+"texture": ExtResource("3_si0pi")
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_a0ech")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3a117")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_os5ry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0vds3")
+}],
+"loop": true,
+"name": &"flower",
 "speed": 5.0
 }]
 
@@ -22,25 +43,25 @@ animations = [{
 radius = 10.0499
 
 [node name="Bubble" type="Area2D"]
-collision_layer = 0
+z_index = 10
+collision_layer = 8
 collision_mask = 6
 script = ExtResource("1_uyr5c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gg0ts")
 autoplay = "default"
-frame_progress = 0.545923
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oxjhp")
 
 [node name="LifeSpan1" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 autostart = true
 
 [node name="LifeSpan2" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 

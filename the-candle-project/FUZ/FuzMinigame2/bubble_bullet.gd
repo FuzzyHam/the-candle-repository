@@ -1,6 +1,7 @@
 extends Area2D
 
-var speed = 250
+var speed = 150
+var bullet_type = "normal"
 
 signal hurt
 
@@ -11,5 +12,5 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	hurt.emit()
+	hurt.emit(self)
 	queue_free()

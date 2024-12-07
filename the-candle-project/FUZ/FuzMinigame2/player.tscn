@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://e3xqgoit1ydy" path="res://FUZ/FuzMinigame2/player.png" id="2_bma6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfcl7"]
-size = Vector2(32, 32)
+size = Vector2(18, 18)
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 script = ExtResource("1_2d4ik")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

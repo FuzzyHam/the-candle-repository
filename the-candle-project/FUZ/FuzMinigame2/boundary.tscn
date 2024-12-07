@@ -13,16 +13,20 @@ distance = -1.0
 [node name="Boundary" type="StaticBody2D"]
 
 [node name="Bottom" type="CollisionShape2D" parent="."]
+position = Vector2(0, 200)
 shape = SubResource("WorldBoundaryShape2D_sgr2r")
 
 [node name="Left" type="CollisionShape2D" parent="."]
+position = Vector2(-330, 0)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_w4r2i")
 
 [node name="Top" type="CollisionShape2D" parent="."]
+position = Vector2(0, -200)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_y278a")
 
 [node name="Right" type="CollisionShape2D" parent="."]
+position = Vector2(330, 0)
 rotation = 4.71239
 shape = SubResource("WorldBoundaryShape2D_o1y0j")

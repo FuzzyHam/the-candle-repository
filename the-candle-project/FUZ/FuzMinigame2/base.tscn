@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt62qt0j4rdiw"]
+
+[ext_resource type="PackedScene" uid="uid://uesmno8s2ult" path="res://FUZ/FuzMinigame2/game.tscn" id="1_jrbac"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame2/base.gd" id="1_uylub"]
+
+[node name="Base" type="Node2D"]
+script = ExtResource("1_uylub")
+
+[node name="Game" parent="." instance=ExtResource("1_jrbac")]
+
+[connection signal="reset_game" from="Game" to="." method="_on_game_reset_game"]
