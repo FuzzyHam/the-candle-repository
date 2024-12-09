@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvobc2biib30u"]
+
+[ext_resource type="Texture2D" uid="uid://cpjwya1vlljw3" path="res://FUZ/FuzMinigame2/flower-1.png" id="1_v04kl"]
+[ext_resource type="FontFile" uid="uid://2y3ehvxdqtn5" path="res://FUZ/FuzMinigame2/PixelOperator8.ttf" id="2_qu40f"]
+
+[node name="HealthDisplay" type="Marker2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_v04kl")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 34.0
+offset_top = -10.0
+offset_right = 74.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("2_qu40f")
+text = "x1"

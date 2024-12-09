@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdtq36c8fuj11"]
+
+[ext_resource type="Texture2D" uid="uid://c5e5xmk8ijuhw" path="res://FUZ/FuzMinigame2/background-2.png" id="1_4mo8g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfbn4"]
+size = Vector2(922, 518)
+
+[sub_resource type="Curve2D" id="Curve2D_vw3vc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -4, -43, 0, 0, 0, 0, 774, -52, 0, 0, 0, 0, 780, 433, 0, 0, 0, 0, -5, 440, 0, 0, 0, 0, -4, -43)
+}
+point_count = 5
+
+[node name="GameArea" type="Area2D"]
+z_index = -10
+collision_layer = 0
+collision_mask = 10
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.25, 1.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tfbn4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -11
+offset_left = -470.0
+offset_top = -266.0
+offset_right = 466.0
+offset_bottom = 264.0
+color = Color(0.0313726, 0.603922, 0.172549, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(60, 2)
+scale = Vector2(1.19351, 1)
+texture = ExtResource("1_4mo8g")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-409, -193)
+curve = SubResource("Curve2D_vw3vc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-4, -43)
+rotation = -0.0115676
