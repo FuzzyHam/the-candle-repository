@@ -1,2 +1,2 @@
 #ignore ALL files in the subdirectory with the save charsave1, charsave2, etc.
-charsave?
+CharacterSave?.tscn

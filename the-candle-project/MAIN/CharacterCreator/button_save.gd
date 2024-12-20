@@ -15,4 +15,4 @@ func _process(delta: float) -> void:
 func _on_pressed() -> void:
 	var scene = PackedScene.new()
 	scene.pack(combined_sprites)
-	ResourceSaver.save(scene, "res://MAIN//CharacterSaves//CharacterSave.tscn")
+	ResourceSaver.save(scene, "res://MAIN//CharacterSaves//CharacterSave1.tscn")
