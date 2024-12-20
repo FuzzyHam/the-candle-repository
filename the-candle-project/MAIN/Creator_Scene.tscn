@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bih15aum2a4qk"]
+[gd_scene load_steps=8 format=3 uid="uid://bih15aum2a4qk"]
 
 [ext_resource type="Script" path="res://MAIN/combined_sprites.gd" id="1_mgyyw"]
 [ext_resource type="Texture2D" uid="uid://bo0fbecifcwae" path="res://MAIN/CharacterCreator/Skin1.png" id="2_7t4ct"]
+[ext_resource type="Script" path="res://MAIN/CharacterCreator/button_save.gd" id="5_v08d5"]
 [ext_resource type="Texture2D" uid="uid://drwc0p0w0w3mo" path="res://MAIN/CharacterCreator/Shape1.png" id="8_wqon8"]
 [ext_resource type="PackedScene" uid="uid://demy0hq6yt78r" path="res://MAIN/CharacterCreator/characterbutton.tscn" id="10_shy0e"]
 [ext_resource type="Texture2D" uid="uid://js0uc6aaqe6a" path="res://MAIN/CharacterCreator/CharacterBackground.png" id="11_r8kwa"]
@@ -13,28 +14,30 @@ default_font_size = 48
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="CombinedSprites" type="Node2D" parent="."]
+[node name="Positioner" type="Node2D" parent="."]
 position = Vector2(225, 250)
 scale = Vector2(8, 8)
+
+[node name="CombinedSprites" type="Node2D" parent="Positioner"]
 script = ExtResource("1_mgyyw")
 
-[node name="Skin" type="Sprite2D" parent="CombinedSprites"]
+[node name="Skin" type="Sprite2D" parent="Positioner/CombinedSprites"]
 texture = ExtResource("2_7t4ct")
 
-[node name="Shape" type="Sprite2D" parent="CombinedSprites"]
+[node name="Shape" type="Sprite2D" parent="Positioner/CombinedSprites"]
 texture = ExtResource("8_wqon8")
 
-[node name="Mouth" type="Sprite2D" parent="CombinedSprites"]
+[node name="Mouth" type="Sprite2D" parent="Positioner/CombinedSprites"]
 
-[node name="Nose" type="Sprite2D" parent="CombinedSprites"]
+[node name="Nose" type="Sprite2D" parent="Positioner/CombinedSprites"]
 
-[node name="Eyes" type="Sprite2D" parent="CombinedSprites"]
+[node name="Eyes" type="Sprite2D" parent="Positioner/CombinedSprites"]
 
-[node name="Eyebrows" type="Sprite2D" parent="CombinedSprites"]
+[node name="Eyebrows" type="Sprite2D" parent="Positioner/CombinedSprites"]
 
-[node name="Hair" type="Sprite2D" parent="CombinedSprites"]
+[node name="Hair" type="Sprite2D" parent="Positioner/CombinedSprites"]
 
-[node name="Accessory" type="Sprite2D" parent="CombinedSprites"]
+[node name="Accessory" type="Sprite2D" parent="Positioner/CombinedSprites"]
 
 [node name="Labels" type="Node" parent="."]
 
@@ -215,6 +218,14 @@ dir = true
 category = "Accessory"
 metadata/_edit_use_anchors_ = true
 
+[node name="ButtonSave" type="Button" parent="Buttons"]
+offset_left = 768.0
+offset_top = 544.0
+offset_right = 893.0
+offset_bottom = 575.0
+text = "Save Character"
+script = ExtResource("5_v08d5")
+
 [node name="Background" type="Sprite2D" parent="."]
 visible = false
 z_index = -1
@@ -229,4 +240,5 @@ offset_bottom = 72.0
 theme = SubResource("Theme_k1jut")
 text = "EDIT YOUR CHARACTER!"
 
-[connection signal="sprite_change" from="CombinedSprites" to="CombinedSprites" method="_on_sprite_change"]
+[connection signal="sprite_change" from="Positioner/CombinedSprites" to="Positioner/CombinedSprites" method="_on_sprite_change"]
+[connection signal="pressed" from="Buttons/ButtonSave" to="Buttons/ButtonSave" method="_on_pressed"]

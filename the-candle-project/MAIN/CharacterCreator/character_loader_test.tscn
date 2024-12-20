@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqu6yyl5b31bc"]
+
+[ext_resource type="Texture2D" uid="uid://cf27e7w528x5r" path="res://icon.svg" id="1_faukd"]
+[ext_resource type="Script" path="res://MAIN/CharacterCreator/test_character.gd" id="1_mjhg6"]
+[ext_resource type="Script" path="res://MAIN/CharacterCreator/LoadCharButton.gd" id="2_i5h0o"]
+[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="4_rvjuu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qs4o"]
+
+[node name="CharacterLoaderTest" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(500, 500)
+scale = Vector2(4, 4)
+script = ExtResource("1_mjhg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_faukd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_0qs4o")
+
+[node name="Button" type="Button" parent="." node_paths=PackedStringArray("character_body_2d", "sprite_2d")]
+offset_left = 424.0
+offset_top = 80.0
+offset_right = 550.0
+offset_bottom = 111.0
+text = "Load Character"
+script = ExtResource("2_i5h0o")
+character_body_2d = NodePath("../CharacterBody2D")
+sprite_2d = NodePath("../CharacterBody2D/Sprite2D")
+
+[node name="CharacterLoader" type="Node" parent="."]
+script = ExtResource("4_rvjuu")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="load_character" from="CharacterLoader" to="CharacterLoader" method="_on_load_character"]
