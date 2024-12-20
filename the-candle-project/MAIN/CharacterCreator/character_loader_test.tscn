@@ -31,8 +31,10 @@ script = ExtResource("2_i5h0o")
 character_body_2d = NodePath("../CharacterBody2D")
 sprite_2d = NodePath("../CharacterBody2D/Sprite2D")
 
-[node name="CharacterLoader" type="Node" parent="."]
+[node name="CharacterLoader" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("4_rvjuu")
+character = NodePath("../CharacterBody2D")
+sprite_node_name = "Sprite2D"
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
 [connection signal="load_character" from="CharacterLoader" to="CharacterLoader" method="_on_load_character"]
