@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_pressed() -> void:
-	var newnode = load("res://MAIN/CharacterSaves/CharacterSave.tscn").instantiate()
+	var newnode = load("res://MAIN/CharacterSaves/CharacterSave1.tscn").instantiate()
 	newnode.scale = sprite_2d.texture.get_size()/(newnode.get_child(1).texture.get_size()*character_body_2d.scale)
 	sprite_2d.queue_free()
 	character_body_2d.add_child(newnode)
