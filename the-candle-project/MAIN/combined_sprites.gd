@@ -34,11 +34,8 @@ var max_accessory:int = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	for i in 7:
+		get_child(i).set_owner(self)
 
 func _on_sprite_change(dir: bool, target: String) -> void:
 	match target:
