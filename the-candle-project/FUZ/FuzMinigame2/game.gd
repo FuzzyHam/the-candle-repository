@@ -7,6 +7,7 @@ extends Node2D
 @onready var bubble_reload: Timer = $BubbleReload
 @onready var health_display: Marker2D = $HealthDisplay
 @onready var score_display: Label = $ScoreDisplay
+@onready var load_player: Node2D = $LoadPlayer
 
 signal reset_game
 
@@ -17,6 +18,7 @@ var mega_spacing = 5
 var score = 0
 var achievements = []
 var lock_every_bubble_achievement = false
+var base_bubble_reload = 2.0
 
 func _ready():
 	#var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
@@ -26,6 +28,7 @@ func _ready():
 	#boundary.get_node("Bottom").position.y = rect.end.y
 	health_display.get_node("Label").text = "x" + str(health)
 
+	load_player._on_load_character() 
 
 func _on_bubble_reload_timeout() -> void:
 	const BUBBLE = preload("res://FUZ/FuzMinigame2/bubble.tscn")
@@ -54,6 +57,7 @@ func _on_bubble_reload_timeout() -> void:
 		new_bubble.modulate = Color(1, 0, 0, 1)
 		mega_spacing += 5
 	add_child(new_bubble)
+	bubble_reload.wait_time = base_bubble_reload
 	
 	
 func change_health(amount):
@@ -169,10 +173,10 @@ func _on_strider_spawn_timeout() -> void:
 		new_strider.shoot.connect(_on_strider_shoot)
 		add_child(new_strider)
 		
-		bubble_reload.wait_time -= 0.07
-		if bubble_reload.wait_time < 0.5:
-			bubble_reload.wait_time = 0.5
-		print(bubble_reload.wait_time)
+		base_bubble_reload -= 0.07
+		if base_bubble_reload < 0.5:
+			base_bubble_reload = 0.5
+		print(base_bubble_reload)
 
 
 func _on_game_area_area_exited(area: Area2D) -> void:
