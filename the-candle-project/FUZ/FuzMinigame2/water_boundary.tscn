@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://di3umsdhhqhbo"]
+
+[ext_resource type="Texture2D" uid="uid://s22f2bbo1e0r" path="res://FUZ/FuzMinigame2/water.png" id="1_1icru"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame2/water_boundary.gd" id="1_7show"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y6mxm"]
+
+[node name="WaterBoundary" type="Node2D"]
+z_index = 19
+script = ExtResource("1_7show")
+
+[node name="UpRect" type="TextureRect" parent="."]
+offset_right = 32.0
+offset_bottom = 10.0
+texture = ExtResource("1_1icru")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="RightRect" type="TextureRect" parent="."]
+offset_right = 32.0
+offset_bottom = 10.0
+texture = ExtResource("1_1icru")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="LeftRect" type="TextureRect" parent="."]
+offset_right = 32.0
+offset_bottom = 10.0
+texture = ExtResource("1_1icru")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="DownRect" type="TextureRect" parent="."]
+offset_right = 79.0
+offset_bottom = 10.0
+texture = ExtResource("1_1icru")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="UpBound" type="Area2D" parent="."]
+rotation = 3.14159
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpBound"]
+shape = SubResource("WorldBoundaryShape2D_y6mxm")
+
+[node name="DownBound" type="Area2D" parent="."]
+position = Vector2(0, -1)
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownBound"]
+shape = SubResource("WorldBoundaryShape2D_y6mxm")
+
+[node name="RightBound" type="Area2D" parent="."]
+position = Vector2(0, -1)
+rotation = 4.71239
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBound"]
+shape = SubResource("WorldBoundaryShape2D_y6mxm")
+
+[node name="LeftBound" type="Area2D" parent="."]
+position = Vector2(-1, -1)
+rotation = 1.5708
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBound"]
+shape = SubResource("WorldBoundaryShape2D_y6mxm")
+
+[connection signal="body_entered" from="UpBound" to="." method="_on_up_bound_body_entered"]
+[connection signal="body_entered" from="DownBound" to="." method="_on_down_bound_body_entered"]
+[connection signal="body_entered" from="RightBound" to="." method="_on_right_bound_body_entered"]
+[connection signal="body_entered" from="LeftBound" to="." method="_on_left_bound_body_entered"]

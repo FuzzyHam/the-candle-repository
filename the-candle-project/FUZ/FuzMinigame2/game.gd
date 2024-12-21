@@ -8,17 +8,30 @@ extends Node2D
 @onready var health_display: Marker2D = $HealthDisplay
 @onready var score_display: Label = $ScoreDisplay
 @onready var load_player: Node2D = $LoadPlayer
+@onready var water_boundary: Node2D = $WaterBoundary
+@onready var strider_spawn: Timer = $StriderSpawn
+@onready var hurt_sfx: AudioStreamPlayer2D = $HurtSFX
+@onready var shoot_sfx: AudioStreamPlayer2D = $ShootSFX
+@onready var flower_sfx: AudioStreamPlayer2D = $FlowerSFX
+@onready var goal: Label = $Goal
+
 
 signal reset_game
 
 var health = 5
 var bubble_counter = 0
-var flower_spacing = 8
-var mega_spacing = 5
 var score = 0
 var achievements = []
 var lock_every_bubble_achievement = false
-var base_bubble_reload = 2.0
+var base_bubble_reload = 1
+var water_distance = 0.0
+var water_overlap_time = 0
+var mega_rarity = 0.8
+const WATER_LIMIT = 200.0
+var flower_spacing = 25
+var danger_spacing = 15
+var flower_offset = flower_spacing
+var danger_offset = danger_spacing
 
 func _ready():
 	#var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
@@ -28,7 +41,52 @@ func _ready():
 	#boundary.get_node("Bottom").position.y = rect.end.y
 	health_display.get_node("Label").text = "x" + str(health)
 
+	water_boundary.get_node("UpBound").position.y = boundary.get_node("Top").position.y + 20
+	water_boundary.get_node("DownBound").position.y = boundary.get_node("Bottom").position.y
+	water_boundary.get_node("RightBound").position.x = boundary.get_node("Right").position.x
+	water_boundary.get_node("LeftBound").position.x = boundary.get_node("Left").position.x + 20
+	var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
+	water_boundary.get_node("UpRect").position.y = rect.position.y
+	water_boundary.get_node("UpRect").size.y = 0
+	water_boundary.get_node("UpRect").position.x = rect.position.x
+	water_boundary.get_node("UpRect").size.x = abs(rect.end.x - rect.position.x)
+	water_boundary.get_node("DownRect").position.y = rect.end.y - 0
+	water_boundary.get_node("DownRect").size.y = 0
+	water_boundary.get_node("DownRect").position.x = rect.position.x
+	water_boundary.get_node("DownRect").size.x = abs(rect.end.x - rect.position.x)
+	water_boundary.get_node("RightRect").position.y = rect.position.y
+	water_boundary.get_node("RightRect").size.y = abs(rect.end.y - rect.position.y)
+	water_boundary.get_node("RightRect").position.x = rect.end.x - 0
+	water_boundary.get_node("RightRect").size.x = 0
+	water_boundary.get_node("LeftRect").position.y = rect.position.y
+	water_boundary.get_node("LeftRect").size.y = abs(rect.end.y - rect.position.y)
+	water_boundary.get_node("LeftRect").position.x = rect.position.x
+	water_boundary.get_node("LeftRect").size.x = 0
+	water_boundary.modulate = Color(1, 1, 1, 0.5)
+
 	load_player._on_load_character() 
+	
+func _physics_process(delta: float) -> void:
+	water_distance += 0.02
+	if water_distance > WATER_LIMIT:
+		water_distance = WATER_LIMIT
+	var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
+	water_boundary.get_node("UpRect").size.y = water_distance
+	water_boundary.get_node("UpBound").position.y = rect.position.y + water_distance
+	water_boundary.get_node("DownRect").position.y = rect.end.y - water_distance
+	water_boundary.get_node("DownRect").size.y = water_distance
+	water_boundary.get_node("DownBound").position.y = rect.end.y - water_distance
+	water_boundary.get_node("RightRect").position.x = rect.end.x - water_distance
+	water_boundary.get_node("RightRect").size.x = water_distance
+	water_boundary.get_node("RightBound").position.x = rect.end.x - water_distance
+	water_boundary.get_node("LeftRect").size.x = water_distance
+	water_boundary.get_node("LeftBound").position.x = rect.position.x + water_distance
+	if player.get_node("HurtBox").get_overlapping_areas().size() > 0:
+		if water_overlap_time == 0 || water_overlap_time >= 60:
+			change_health(-1)
+			hurt_sfx.play()
+			water_overlap_time = 0
+		water_overlap_time += 1
 
 func _on_bubble_reload_timeout() -> void:
 	const BUBBLE = preload("res://FUZ/FuzMinigame2/bubble.tscn")
@@ -42,40 +100,52 @@ func _on_bubble_reload_timeout() -> void:
 	new_bubble.lifespan_die.connect(_on_lifespan_die)
 	bubble_counter += 1
 	new_bubble.modulate = Color(0.2, 0.6, 1, 1)
-	if flower_spacing == mega_spacing:
-		mega_spacing += 1
-	if bubble_counter == flower_spacing:
+	new_bubble.bubble_type = "normal"
+	if flower_offset == danger_offset:
+		flower_offset += 1
+	if bubble_counter == flower_offset:
 		new_bubble.bubble_type = "flower"
 		new_bubble.get_node("LifeSpan1").stop()
 		new_bubble.get_node("LifeSpan2").stop()
 		new_bubble.get_node("AnimatedSprite2D").autoplay = "flower"
 		new_bubble.get_node("AnimatedSprite2D").play("flower")
 		new_bubble.modulate = Color(1, 1, 1, 1)
-		flower_spacing += 8
-	if bubble_counter == mega_spacing:
-		new_bubble.bubble_type = "mega"
-		new_bubble.modulate = Color(1, 0, 0, 1)
-		mega_spacing += 5
+		flower_offset += flower_spacing
+	if bubble_counter == danger_offset:
+		new_bubble.bubble_type = "danger"
+		new_bubble.modulate = Color(1, 0.6, 0.2, 1)
+		new_bubble.danger_explode.connect(_on_danger_explode)
+		danger_offset += danger_spacing
+		danger_spacing -= 1
+		if danger_spacing <= 5:
+			danger_spacing = 5
+	if new_bubble.bubble_type == "normal":
+		var rtype = randf()
+		if rtype > mega_rarity:
+			new_bubble.bubble_type = "mega"
+			new_bubble.modulate = Color(1, 0, 0, 1)
 	add_child(new_bubble)
-	bubble_reload.wait_time = base_bubble_reload
+	var r = randf() - 0.5
+	bubble_reload.wait_time = base_bubble_reload + r
 	
 	
 func change_health(amount):
 	health += amount
 	health_display.get_node("Label").text = "x" + str(health)
-	print(health)
 	if health <= 0:
 		reset_game.emit(self)
 	
 func _on_bubble_hurt():
 	change_health(-1)
+	hurt_sfx.play()
 	
 func _on_lifespan_die():
 	lock_every_bubble_achievement = true
-	print(lock_every_bubble_achievement)
 	
 func _on_bubble_score_gain(bubble):
 	if bubble.bubble_type == "normal":
+		score += 1
+	if bubble.bubble_type == "danger":
 		score += 1
 	if bubble.bubble_type == "flower":
 		score += 2
@@ -86,6 +156,7 @@ func _on_bubble_score_gain(bubble):
 		print("YOU WIN!!")
 		print("Achievement: Get 100 points in ripples")
 		achievements.append("RIPPLES:WIN")
+		goal.add_theme_color_override("font_color", Color(0, 1, 0))
 		if !lock_every_bubble_achievement:
 			print("Achievement: Shoot all bubbles before they die and win the game")
 			achievements.append("RIPPLES:EVERYBUBBLE")
@@ -97,18 +168,31 @@ func _on_bubble_score_gain(bubble):
 func _on_bubble_bullet_hurt(bubble_bullet):
 	if bubble_bullet.bullet_type != "flower":
 		change_health(-1)
+		hurt_sfx.play()
 	if bubble_bullet.bullet_type == "flower":
 		change_health(1)
+		flower_sfx.play()
+	
+func _on_danger_explode(bubble):
+	var deg = 0
+	const BUBBLE_BULLET = preload("res://FUZ/FuzMinigame2/bubble_bullet.tscn")
+	for a in 24:
+		var new_bubble_bullet = BUBBLE_BULLET.instantiate()
+		new_bubble_bullet.global_position = bubble.global_position
+		new_bubble_bullet.rotation_degrees = deg
+		deg += 15
+		new_bubble_bullet.hurt.connect(_on_bubble_bullet_hurt)
+		call_deferred("add_child", new_bubble_bullet)
 	
 func _on_bubble_explode(bubble):
 	var deg = 0
 	const BUBBLE_BULLET = preload("res://FUZ/FuzMinigame2/bubble_bullet.tscn")
 	if bubble.bubble_type == "normal":
-		for a in 8:
+		for a in 6:
 			var new_bubble_bullet = BUBBLE_BULLET.instantiate()
 			new_bubble_bullet.global_position = bubble.global_position
 			new_bubble_bullet.rotation_degrees = deg
-			deg += 45
+			deg += 60
 			new_bubble_bullet.hurt.connect(_on_bubble_bullet_hurt)
 			call_deferred("add_child", new_bubble_bullet)
 	if bubble.bubble_type == "mega":
@@ -117,6 +201,14 @@ func _on_bubble_explode(bubble):
 			new_bubble_bullet.global_position = bubble.global_position
 			new_bubble_bullet.rotation_degrees = deg
 			deg += 24
+			new_bubble_bullet.hurt.connect(_on_bubble_bullet_hurt)
+			call_deferred("add_child", new_bubble_bullet)
+	if bubble.bubble_type == "danger":
+		for a in 12:
+			var new_bubble_bullet = BUBBLE_BULLET.instantiate()
+			new_bubble_bullet.global_position = bubble.global_position
+			new_bubble_bullet.rotation_degrees = deg
+			deg += 30
 			new_bubble_bullet.hurt.connect(_on_bubble_bullet_hurt)
 			call_deferred("add_child", new_bubble_bullet)
 	if bubble.bubble_type == "flower":
@@ -141,6 +233,7 @@ func _on_player_shoot() -> void:
 	new_bullet.global_position = player.global_position
 	new_bullet.look_at(get_global_mouse_position())
 	add_child(new_bullet)
+	shoot_sfx.play()
 
 
 func _on_strider_shoot(strider) -> void:
@@ -173,10 +266,14 @@ func _on_strider_spawn_timeout() -> void:
 		new_strider.shoot.connect(_on_strider_shoot)
 		add_child(new_strider)
 		
-		base_bubble_reload -= 0.07
-		if base_bubble_reload < 0.5:
-			base_bubble_reload = 0.5
-		print(base_bubble_reload)
+		mega_rarity -= 0.01
+		strider_spawn.wait_time -= 0.2
+		if strider_spawn.wait_time < 1:
+			strider_spawn.wait_time = 1
+		#print(strider_spawn.wait_time)
+		#base_bubble_reload -= 0.05
+		if base_bubble_reload < 0.6:
+			base_bubble_reload = 0.6
 
 
 func _on_game_area_area_exited(area: Area2D) -> void:
