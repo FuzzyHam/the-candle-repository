@@ -20,6 +20,7 @@ extends Node2D
 @onready var life_sfx: AudioStreamPlayer2D = $LifeSFX
 @onready var laser_sfx: AudioStreamPlayer2D = $LaserSFX
 @onready var spike_sfx: AudioStreamPlayer2D = $SpikeSFX
+@onready var load_player: Node2D = $LoadPlayer
 
 
 var generators
@@ -46,6 +47,8 @@ func _ready():
 		l.laser_hit.connect(_on_laser_hit)
 	lasers.get_children()[0].laser_fire.connect(_on_laser_fire)
 	progress_life_spawn = round(randf() * 5) + 8
+	
+	load_player._on_load_character() 
 	
 func _process(delta: float) -> void:
 	event_warning.get_node("Label").text = str(event_warning.get_node("Alert").speed_scale)

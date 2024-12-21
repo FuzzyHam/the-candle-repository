@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://vwnfdvurumlv"]
+[gd_scene load_steps=28 format=3 uid="uid://vwnfdvurumlv"]
 
 [ext_resource type="Script" path="res://FUZ/SpaceStationGame/game.gd" id="1_ihp1m"]
 [ext_resource type="PackedScene" uid="uid://cs27pyiu450qi" path="res://FUZ/SpaceStationGame/player.tscn" id="1_y15ks"]
@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://blg653yesdo7b" path="res://FUZ/SpaceStationGame/pickupCoin.wav" id="20_f4eiv"]
 [ext_resource type="AudioStream" uid="uid://bycisbw6a6yg1" path="res://FUZ/SpaceStationGame/laserShoot.wav" id="21_nt38x"]
 [ext_resource type="AudioStream" uid="uid://c3shv4x08tgd8" path="res://FUZ/SpaceStationGame/click.wav" id="22_8qc6d"]
+[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="23_k3iex"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q2p5d"]
 distance = -14.0
@@ -260,6 +261,11 @@ stream = ExtResource("21_nt38x")
 
 [node name="SpikeSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("22_8qc6d")
+
+[node name="LoadPlayer" type="Node2D" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("23_k3iex")
+character = NodePath("../Player")
+sprite_node_name = "Player"
 
 [connection signal="body_exited" from="GameArea" to="." method="_on_game_area_body_exited"]
 [connection signal="hurt" from="Player" to="." method="_on_player_hurt"]
