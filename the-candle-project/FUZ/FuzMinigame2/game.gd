@@ -23,13 +23,13 @@ var bubble_counter = 0
 var score = 0
 var achievements = []
 var lock_every_bubble_achievement = false
-var base_bubble_reload = 1
+var base_bubble_reload = 0.8
 var water_distance = 0.0
 var water_overlap_time = 0
 var mega_rarity = 0.8
 const WATER_LIMIT = 200.0
 var flower_spacing = 25
-var danger_spacing = 15
+var danger_spacing = 20
 var flower_offset = flower_spacing
 var danger_offset = danger_spacing
 
