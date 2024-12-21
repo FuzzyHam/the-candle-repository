@@ -1,13 +1,15 @@
 extends Area2D
 
-var speed = 300
+var speed = 250
 var bubble_type = "normal"
 var shot = false
+var danger_dead = false
 
 signal hurt
 signal explode
 signal score_gain
 signal lifespan_die
+signal danger_explode
 
 
 func _ready() -> void:
@@ -39,9 +41,12 @@ func _on_life_span_1_timeout() -> void:
 		modulate = Color(0.8, 0.2, 1, 1)
 	if bubble_type == "mega":
 		modulate = Color(0.6, 0, 0, 1)
+	if bubble_type == "danger":
+		modulate = Color(0.8, 0.4, 0, 1)
 
 
 func _on_life_span_2_timeout() -> void:
-	explode.emit(self)
+	if bubble_type == "danger":
+		danger_explode.emit(self)
 	lifespan_die.emit()
 	queue_free()

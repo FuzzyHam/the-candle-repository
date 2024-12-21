@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://uesmno8s2ult"]
+[gd_scene load_steps=15 format=3 uid="uid://uesmno8s2ult"]
 
 [ext_resource type="PackedScene" uid="uid://18hqcc48bipb" path="res://FUZ/FuzMinigame2/player.tscn" id="1_3ye41"]
 [ext_resource type="Script" path="res://FUZ/FuzMinigame2/game.gd" id="1_crokp"]
@@ -10,6 +10,10 @@
 [ext_resource type="FontFile" uid="uid://2y3ehvxdqtn5" path="res://FUZ/FuzMinigame2/PixelOperator8.ttf" id="8_illwo"]
 [ext_resource type="AudioStream" uid="uid://binmvugpsee0o" path="res://FUZ/FuzMinigame2/bubble-bop-2.mp3" id="9_h1pgt"]
 [ext_resource type="Script" path="res://MAIN/character_loader.gd" id="9_vxb5r"]
+[ext_resource type="PackedScene" uid="uid://di3umsdhhqhbo" path="res://FUZ/FuzMinigame2/water_boundary.tscn" id="11_nlmua"]
+[ext_resource type="AudioStream" uid="uid://dpb8ega0bv62t" path="res://FUZ/FuzMinigame2/hurt.wav" id="12_f5cfn"]
+[ext_resource type="AudioStream" uid="uid://by3561by0c7de" path="res://FUZ/FuzMinigame2/shoot.wav" id="13_pyull"]
+[ext_resource type="AudioStream" uid="uid://bsvgkcv6to3s1" path="res://FUZ/FuzMinigame2/flower.wav" id="14_vwub7"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_crokp")
@@ -86,11 +90,10 @@ scale = Vector2(2, 2)
 texture = ExtResource("3_kmw87")
 
 [node name="BubbleReload" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
 
 [node name="StriderSpawn" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 10.0
 autostart = true
 
 [node name="HealthDisplay" parent="." instance=ExtResource("7_ms4pr")]
@@ -126,6 +129,17 @@ autoplay = true
 script = ExtResource("9_vxb5r")
 character = NodePath("../Player")
 sprite_node_name = "Sprite2D"
+
+[node name="WaterBoundary" parent="." instance=ExtResource("11_nlmua")]
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_f5cfn")
+
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_pyull")
+
+[node name="FlowerSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_vwub7")
 
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="area_exited" from="GameCenter/GameArea" to="." method="_on_game_area_area_exited"]

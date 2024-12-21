@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://2y3ehvxdqtn5" path="res://FUZ/FuzMinigame2/PixelOperator8.ttf" id="2_qu40f"]
 
 [node name="HealthDisplay" type="Marker2D"]
+z_index = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)

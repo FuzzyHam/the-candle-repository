@@ -1,6 +1,6 @@
 extends Area2D
 
-var speed = 150
+var speed = 125
 var bullet_type = "normal"
 
 signal hurt

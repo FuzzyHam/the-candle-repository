@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://18hqcc48bipb"]
+[gd_scene load_steps=5 format=3 uid="uid://18hqcc48bipb"]
 
 [ext_resource type="Script" path="res://FUZ/FuzMinigame2/player.gd" id="1_2d4ik"]
 [ext_resource type="Texture2D" uid="uid://e3xqgoit1ydy" path="res://FUZ/FuzMinigame2/player.png" id="2_bma6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfcl7"]
 size = Vector2(18, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2l8hg"]
+size = Vector2(30, 30)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -16,3 +19,10 @@ texture = ExtResource("2_bma6x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qfcl7")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_2l8hg")
