@@ -108,11 +108,11 @@ func _on_coin_collect(amount:int) -> void:
 	
 	match amount:
 		1:
-			coin_se.volume_db=-8
+			coin_se.volume_db=-13
 			coin_se.pitch_scale=pitchscale
 			coin_se.play()
 		10:
-			coinbag_se.volume_db=-8
+			coinbag_se.volume_db=-13
 			coinbag_se.pitch_scale=pitchscale/3+0.3
 			coinbag_se.play()
 
@@ -120,18 +120,18 @@ func _on_health_change(amount:int) -> void:
 	if(health+amount<=maxHealth):
 		health+=amount
 	else: 
-		health_se.volume_db=-5
+		health_se.volume_db=-10
 		health_se.play()
 		return
 	if amount>0:
-		health_se.volume_db=-5
+		health_se.volume_db=-10
 		health_se.play()
 		h_flow_container.get_child(health-1).texture=HEART_1
 	if health==0: get_tree().reload_current_scene()
 	if amount<0:
 		h_flow_container.get_child(health).texture=HEART_2
 		coin_high.visible=false
-		hit_se.volume_db=-5
+		hit_se.volume_db=-8
 		hit_se.play() 
 		pitchscale=1
 		coin_streak.start()
@@ -211,6 +211,7 @@ func _on_wave_start() -> void:
 	health_timer.paused=false
 	wave+=1
 	wave_ui.text="[outline_size=8][outline_color=white][color=#1b81dc][center]WAVE "+str(wave)+"[/center][/color][/outline_color][/outline_size]"
+	coin_streak.paused=false
 	coin_streak.start()
 	
 	#add difficulty increase
