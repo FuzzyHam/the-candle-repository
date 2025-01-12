@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://vla8dyy1xtrc"]
+
+[ext_resource type="Script" path="res://caution.gd" id="1_wkh5x"]
+[ext_resource type="Texture2D" uid="uid://cv70oxhlkxnqi" path="res://AG/AGMinigame1/Caution.png" id="2_b0ms7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5ypl"]
+atlas = ExtResource("2_b0ms7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38lol"]
+atlas = ExtResource("2_b0ms7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fr7cs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5ypl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38lol")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Caution" type="StaticBody2D"]
+z_index = -1
+scale = Vector2(3, 3)
+script = ExtResource("1_wkh5x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_fr7cs")
+autoplay = "default"
+frame_progress = 0.239516
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

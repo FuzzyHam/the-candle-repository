@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7olssqpcj2ih"]
+
+[ext_resource type="Script" path="res://AG/AGMinigame1/bat.gd" id="1_qn0lo"]
+[ext_resource type="Texture2D" uid="uid://cxy8isnak2nc5" path="res://AG/AGMinigame1/bat.png" id="2_ygbjf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8in8k"]
+atlas = ExtResource("2_ygbjf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn8we"]
+atlas = ExtResource("2_ygbjf")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2l6n"]
+atlas = ExtResource("2_ygbjf")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1kch"]
+atlas = ExtResource("2_ygbjf")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_epya5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8in8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn8we")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2l6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1kch")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cycjk"]
+radius = 6.0
+
+[node name="bat" type="CharacterBody2D"]
+position = Vector2(500, 100)
+scale = Vector2(2, 2)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_qn0lo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_epya5")
+autoplay = "default"
+frame_progress = 0.689637
+
+[node name="hitCollision" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitCollision"]
+position = Vector2(0, 5)
+scale = Vector2(0.9, 0.9)
+shape = SubResource("CircleShape2D_cycjk")
+
+[node name="BatMove" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="BatMove" to="." method="_on_bat_move_timeout"]

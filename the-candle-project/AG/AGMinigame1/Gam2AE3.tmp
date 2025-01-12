@@ -1,0 +1,389 @@
+[gd_scene load_steps=27 format=3 uid="uid://dyphfecqm32vr"]
+
+[ext_resource type="Script" path="res://AG/AGMinigame1/game.gd" id="1_8pthr"]
+[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="1_tudty"]
+[ext_resource type="Script" path="res://AG/AGMinigame1/player.gd" id="1_we1d6"]
+[ext_resource type="Texture2D" uid="uid://cf27e7w528x5r" path="res://icon.svg" id="1_y6gop"]
+[ext_resource type="Shader" path="res://AG/AGMinigame1/ParallaxShader.gdshader" id="6_dkkrx"]
+[ext_resource type="Texture2D" uid="uid://bepvi2owxbn7" path="res://AG/AGMinigame1/CliffSide1.png" id="7_5sscb"]
+[ext_resource type="Texture2D" uid="uid://bxf7dsp47m0dl" path="res://AG/AGMinigame1/CliffSide3.png" id="7_ae5ke"]
+[ext_resource type="Texture2D" uid="uid://cgi17c5gpaetm" path="res://AG/AGMinigame1/CliffSide2.png" id="7_c7bxg"]
+[ext_resource type="Texture2D" uid="uid://dfn1jhlun6w28" path="res://AG/AGMinigame1/Heart1.png" id="10_072v2"]
+[ext_resource type="AudioStream" uid="uid://bqeyvqo3qbf8q" path="res://AG/AGMinigame1/coin.wav" id="10_njx7n"]
+[ext_resource type="AudioStream" uid="uid://c8w40dukl3hmc" path="res://AG/AGMinigame1/damage.wav" id="11_fxs2l"]
+[ext_resource type="AudioStream" uid="uid://b2tiwkilbtwmg" path="res://AG/AGMinigame1/BagPickup.wav" id="11_tyfst"]
+[ext_resource type="AudioStream" uid="uid://c2i46la5yfmwe" path="res://AG/AGMinigame1/healthSE.wav" id="13_iq4xr"]
+[ext_resource type="AudioStream" uid="uid://c0ae1tx2t6r0y" path="res://AG/AGMinigame1/Project_20.mp3" id="16_wwheo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2hbm"]
+size = Vector2(112, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovjta"]
+size = Vector2(120, 120)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwmer"]
+shader = ExtResource("6_dkkrx")
+shader_parameter/SPEED = 0.5
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ls5ol"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_21kvv"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uyuit"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ljico"]
+normal = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3ktc"]
+size = Vector2(8, 954)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_innxn"]
+size = Vector2(16, 954)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hrd8"]
+size = Vector2(176, 954)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3th4"]
+size = Vector2(1440, 64)
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_dmps4"]
+stream_count = 1
+stream_0 = ExtResource("16_wwheo")
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_8pthr")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(568, 288)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_we1d6")
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_y6gop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_p2hbm")
+
+[node name="CoinSensor" type="Area2D" parent="Player"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CoinSensor"]
+shape = SubResource("RectangleShape2D_ovjta")
+
+[node name="BoulderSensor" type="Area2D" parent="Player"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/BoulderSensor"]
+shape = SubResource("RectangleShape2D_ovjta")
+
+[node name="BatSensor" type="Area2D" parent="Player"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/BatSensor"]
+shape = SubResource("RectangleShape2D_ovjta")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Player"]
+
+[node name="BoulderTimer" type="Timer" parent="."]
+wait_time = 0.9
+autostart = true
+
+[node name="CashTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="BatTimer" type="Timer" parent="."]
+wait_time = 15.0
+
+[node name="HealthTimer" type="Timer" parent="."]
+wait_time = 45.0
+autostart = true
+
+[node name="WaveBuffer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(296, -288)
+
+[node name="BlackSide" type="ColorRect" parent="Background"]
+z_index = -3
+z_as_relative = false
+offset_left = -344.0
+offset_top = 256.0
+offset_right = -128.0
+offset_bottom = 1160.0
+color = Color(0, 0, 0, 1)
+
+[node name="BlackSide2" type="ColorRect" parent="Background"]
+z_index = -3
+z_as_relative = false
+offset_left = 712.0
+offset_top = 248.0
+offset_right = 912.0
+offset_bottom = 1152.0
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="ColorRect" parent="Background"]
+z_index = -3
+z_as_relative = false
+offset_left = -248.0
+offset_top = 240.0
+offset_right = 784.0
+offset_bottom = 992.0
+color = Color(0.125629, 0.0223401, 0.108539, 1)
+
+[node name="CliffsideSmall" type="Node2D" parent="Background"]
+z_index = -2
+z_as_relative = false
+position = Vector2(-232, 64)
+scale = Vector2(1.15, 1.15)
+
+[node name="TextureRect3" type="TextureRect" parent="Background/CliffsideSmall"]
+material = SubResource("ShaderMaterial_kwmer")
+offset_left = 34.7826
+offset_top = 13.913
+offset_right = 98.7826
+offset_bottom = 920.913
+texture = ExtResource("7_ae5ke")
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Background/CliffsideSmall"]
+material = SubResource("ShaderMaterial_kwmer")
+offset_left = 786.087
+offset_right = 850.087
+offset_bottom = 907.0
+texture = ExtResource("7_ae5ke")
+stretch_mode = 1
+flip_h = true
+
+[node name="CliffsideMed" type="Node2D" parent="Background"]
+z_index = 1
+position = Vector2(-232, 64)
+scale = Vector2(1.55, 1.55)
+
+[node name="TextureRect3" type="TextureRect" parent="Background/CliffsideMed"]
+material = SubResource("ShaderMaterial_kwmer")
+offset_left = -10.3226
+offset_top = 5.16129
+offset_right = 53.6774
+offset_bottom = 677.161
+texture = ExtResource("7_c7bxg")
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Background/CliffsideMed"]
+material = SubResource("ShaderMaterial_kwmer")
+offset_left = 603.871
+offset_top = -5.16129
+offset_right = 667.871
+offset_bottom = 691.839
+texture = ExtResource("7_c7bxg")
+stretch_mode = 1
+flip_h = true
+
+[node name="CliffsideBig" type="Node2D" parent="Background"]
+z_index = 2
+position = Vector2(-296, 264)
+scale = Vector2(1.83, 1.83)
+
+[node name="TextureRect" type="TextureRect" parent="Background/CliffsideBig"]
+material = SubResource("ShaderMaterial_kwmer")
+offset_left = -17.4863
+offset_top = -109.29
+offset_right = 46.5137
+offset_bottom = 467.71
+texture = ExtResource("7_5sscb")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Background/CliffsideBig"]
+material = SubResource("ShaderMaterial_kwmer")
+offset_left = 581.421
+offset_top = -109.29
+offset_right = 645.421
+offset_bottom = 467.71
+texture = ExtResource("7_5sscb")
+stretch_mode = 1
+flip_h = true
+
+[node name="WorldBoundaries" type="Node" parent="Background"]
+
+[node name="WBBottom" type="StaticBody2D" parent="Background/WorldBoundaries"]
+position = Vector2(544, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WorldBoundaries/WBBottom"]
+shape = SubResource("WorldBoundaryShape2D_ls5ol")
+
+[node name="WBTop" type="StaticBody2D" parent="Background/WorldBoundaries"]
+position = Vector2(552, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WorldBoundaries/WBTop"]
+shape = SubResource("WorldBoundaryShape2D_21kvv")
+
+[node name="WBRight" type="StaticBody2D" parent="Background/WorldBoundaries"]
+position = Vector2(1040, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WorldBoundaries/WBRight"]
+shape = SubResource("WorldBoundaryShape2D_uyuit")
+
+[node name="WBLeft" type="StaticBody2D" parent="Background/WorldBoundaries"]
+position = Vector2(130, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/WorldBoundaries/WBLeft"]
+shape = SubResource("WorldBoundaryShape2D_ljico")
+
+[node name="LeftBoulderBoundary" type="Marker2D" parent="Background"]
+position = Vector2(-40, 208)
+
+[node name="RightBoulderBoundary" type="Marker2D" parent="Background"]
+position = Vector2(600, 192)
+
+[node name="BoulderhitRight" type="Area2D" parent="Background"]
+position = Vector2(-128, 72)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/BoulderhitRight"]
+position = Vector2(836, 467)
+shape = SubResource("RectangleShape2D_q3ktc")
+debug_color = Color(0.784476, 0.433252, 0.0290253, 0.42)
+
+[node name="BoulderhitLeft" type="Area2D" parent="Background"]
+position = Vector2(-128, 72)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/BoulderhitLeft"]
+position = Vector2(-24, 467)
+shape = SubResource("RectangleShape2D_innxn")
+debug_color = Color(0.81769, 0.404612, 0.0336122, 0.42)
+
+[node name="Area2D" type="StaticBody2D" parent="Background"]
+position = Vector2(-128, 72)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2D"]
+z_index = 4
+position = Vector2(-112, 467)
+shape = SubResource("RectangleShape2D_0hrd8")
+
+[node name="Area2D2" type="StaticBody2D" parent="Background"]
+position = Vector2(-128, 72)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2D2"]
+z_index = 4
+position = Vector2(928, 456)
+shape = SubResource("RectangleShape2D_0hrd8")
+
+[node name="CharacterLoader" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("1_tudty")
+character = NodePath("../Player")
+sprite_node_name = "Sprite"
+
+[node name="CoinUI" type="RichTextLabel" parent="."]
+z_index = 10
+offset_left = 824.0
+offset_right = 1144.0
+offset_bottom = 88.0
+theme_override_colors/font_shadow_color = Color(0.889914, 0.614153, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/normal_font_size = 42
+text = "COINS: 0"
+
+[node name="CoinHigh" type="RichTextLabel" parent="."]
+visible = false
+z_index = 10
+offset_left = 824.0
+offset_top = 56.0
+offset_right = 1144.0
+offset_bottom = 144.0
+theme_override_colors/font_shadow_color = Color(0.889914, 0.614153, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/normal_font_size = 24
+text = "COIN HIGH: 2x MULTIPLIER"
+
+[node name="WaveUI" type="RichTextLabel" parent="."]
+offset_left = 232.0
+offset_right = 824.0
+offset_bottom = 72.0
+theme_override_colors/font_outline_color = Color(0.951209, 0.647459, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[outline_size=8][outline_color=white][color=#1b81dc][center]WAVE 1[/center][/color][/outline_color][/outline_size]"
+
+[node name="BoxContainer" type="Control" parent="."]
+z_index = 20
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 128.0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="BoxContainer"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 216.0
+offset_bottom = 72.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="BoxContainer/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("10_072v2")
+
+[node name="TextureRect2" type="TextureRect" parent="BoxContainer/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("10_072v2")
+
+[node name="TextureRect3" type="TextureRect" parent="BoxContainer/HFlowContainer"]
+layout_mode = 2
+texture = ExtResource("10_072v2")
+
+[node name="coinSE" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_njx7n")
+
+[node name="coinbagSE" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_tyfst")
+
+[node name="hitSE" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_fxs2l")
+
+[node name="healthSE" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_iq4xr")
+
+[node name="coinStreak" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 10
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(608, 752)
+shape = SubResource("RectangleShape2D_q3th4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_dmps4")
+volume_db = -2.0
+autoplay = true
+
+[connection signal="area_entered" from="Player/CoinSensor" to="Player" method="_on_coin_sensor_area_entered"]
+[connection signal="area_entered" from="Player/BoulderSensor" to="Player" method="_on_boulder_sensor_area_entered"]
+[connection signal="area_entered" from="Player/BatSensor" to="Player" method="_on_bat_sensor_area_entered"]
+[connection signal="timeout" from="BoulderTimer" to="." method="_on_boulder_timer_timeout"]
+[connection signal="timeout" from="CashTimer" to="." method="_on_cash_timer_timeout"]
+[connection signal="timeout" from="HealthTimer" to="." method="_on_health_timer_timeout"]
+[connection signal="timeout" from="WaveBuffer" to="." method="_on_wave_buffer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="coinStreak" to="." method="_on_coin_streak_timeout"]

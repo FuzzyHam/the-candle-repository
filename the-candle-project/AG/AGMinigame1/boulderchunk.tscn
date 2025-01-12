@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbcqr2d5j4jk7"]
+
+[ext_resource type="Texture2D" uid="uid://cn15iqicx6sli" path="res://AG/AGMinigame1/MiniAsteroids1.png" id="1_dqujy"]
+[ext_resource type="Script" path="res://AG/AGMinigame1/boulderchunk.gd" id="2_6l4nc"]
+
+[sub_resource type="Curve" id="Curve_pqhj1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.786667, 1), 0.0, 0.0, 0, 0, Vector2(0.966667, 0.648352), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_kbeu3"]
+curve = SubResource("Curve_pqhj1")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_upbqq"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_enb13"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -90.0
+angle_max = 90.0
+velocity_pivot = Vector3(0, 1, 0)
+spread = 85.449
+initial_velocity_min = 53.76
+initial_velocity_max = 75.27
+directional_velocity_min = -1.00002
+directional_velocity_max = 0.999984
+directional_velocity_curve = SubResource("CurveXYZTexture_upbqq")
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+gravity = Vector3(0, 300, 0)
+scale_max = 1.5
+scale_over_velocity_max = 1.0
+alpha_curve = SubResource("CurveTexture_kbeu3")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+scale = Vector2(2, 2)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_enb13")
+texture = ExtResource("1_dqujy")
+lifetime = 5.0
+one_shot = true
+script = ExtResource("2_6l4nc")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
