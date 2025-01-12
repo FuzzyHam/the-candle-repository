@@ -17,6 +17,7 @@ func _on_area_2d_2_area_entered(area: Area2D) -> void:
 	var instance = HIT_SE.instantiate()
 	instance.pitch_scale=randf_range(2,2.5)
 	instance.global_position=global_position
+	instance.volume_db=-7
 	get_parent().add_child(instance)
 	
 	for i in randi_range(3,6):
