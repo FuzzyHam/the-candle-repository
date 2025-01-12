@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvmensby7kho7"]
+
+[ext_resource type="Script" path="res://AG/AGMinigame1/wind.gd" id="1_jqqsp"]
+[ext_resource type="Texture2D" uid="uid://intma35ifwre" path="res://AG/AGMinigame1/wind.png" id="2_tt4f7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb6lm"]
+size = Vector2(16, 16)
+
+[node name="wind" type="CharacterBody2D"]
+script = ExtResource("1_jqqsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 4)
+texture = ExtResource("2_tt4f7")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_xb6lm")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://8b0n4t5uvgrd"]
+
+[ext_resource type="Script" path="res://AG/AGMinigame1/boulder.gd" id="1_semin"]
+[ext_resource type="Texture2D" uid="uid://dw7mskgj82kjs" path="res://AG/AGMinigame1/Boulder.png" id="2_w0k47"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tspnd"]
+bounce = 0.6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8jufe"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j7531"]
+radius = 36.6412
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n0iyu"]
+radius = 50.3585
+
+[node name="Boulder" type="RigidBody2D"]
+scale = Vector2(0.655, 0.655)
+collision_layer = 0
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_tspnd")
+gravity_scale = 0.3
+script = ExtResource("1_semin")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3.25, 3.25)
+texture = ExtResource("2_w0k47")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_8jufe")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 256
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_j7531")
+
+[node name="Area2D2" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("CircleShape2D_n0iyu")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Area2D2" to="." method="_on_area_2d_2_area_entered"]

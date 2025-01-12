@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr75vj0w6fttm"]
+
+[ext_resource type="Script" path="res://AG/AGMinigame1/upgrade_button.gd" id="1_kgh56"]
+[ext_resource type="Texture2D" uid="uid://dy8818tfykxo4" path="res://AG/AGMinigame1/Upgrade1.png" id="2_f0k2j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssjwg"]
+size = Vector2(12.8, 12.8)
+
+[node name="UpgradeButton" type="StaticBody2D"]
+z_index = -1
+position = Vector2(288, 512)
+scale = Vector2(5, 5)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_kgh56")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -26.0
+offset_top = 8.0
+offset_right = 125.0
+offset_bottom = 69.0
+scale = Vector2(0.34, 0.34)
+bbcode_enabled = true
+text = "[font_size=16][center]+LUCK:
+[font_size=8]More gold bags and hearts spawn. Costs 100 gold."
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_f0k2j")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ssjwg")
+
+[node name="PressAction" type="RichTextLabel" parent="."]
+offset_left = -20.8
+offset_top = -12.8
+offset_right = 213.2
+offset_bottom = 19.2
+scale = Vector2(0.195, 0.195)
+bbcode_enabled = true
+text = "[center]Press action button to buy[/center]"
+
+[node name="text_change" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="text_change" to="." method="_on_text_change_timeout"]
