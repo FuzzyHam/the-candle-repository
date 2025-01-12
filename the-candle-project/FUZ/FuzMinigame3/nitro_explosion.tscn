@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1mlq6c6otms6"]
+
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/nitro_explosion.gd" id="1_0f30y"]
+
+[sub_resource type="Curve" id="Curve_msmli"]
+_data = [Vector2(0.00561798, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505494), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_rl7no"]
+colors = PackedColorArray(0, 0.89492, 0.218207, 1, 0, 0.512357, 0.0552819, 1)
+
+[node name="NitroExplosion" type="Marker2D"]
+script = ExtResource("1_0f30y")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 80
+lifetime = 3.0
+one_shot = true
+speed_scale = 10.0
+explosiveness = 0.8
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 20.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_msmli")
+color = Color(3.36915e-07, 0.638675, 0.33036, 1)
+color_ramp = SubResource("Gradient_rl7no")
+
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]

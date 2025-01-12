@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://b4p5ec565px7h"]
+
+[ext_resource type="Texture2D" uid="uid://cjaeqjxb4oum" path="res://FUZ/FuzMinigame3/New Piskel.png" id="1_rk3if"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/sawblade.gd" id="1_uhyls"]
+[ext_resource type="Texture2D" uid="uid://ul80p8x0ej55" path="res://FUZ/FuzMinigame3/crawler.png" id="2_i7ner"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3okn"]
+atlas = ExtResource("2_i7ner")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ncam"]
+atlas = ExtResource("2_i7ner")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yv8s"]
+atlas = ExtResource("1_rk3if")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2otj"]
+atlas = ExtResource("1_rk3if")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boms5"]
+atlas = ExtResource("1_rk3if")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fcxs"]
+atlas = ExtResource("1_rk3if")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4lqx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3okn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ncam")
+}],
+"loop": true,
+"name": &"crawler",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yv8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2otj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boms5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fcxs")
+}],
+"loop": true,
+"name": &"sawblade",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s3r6a"]
+radius = 21.0238
+
+[node name="Sawblade" type="Area2D"]
+z_index = 5
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_uhyls")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_j4lqx")
+animation = &"sawblade"
+autoplay = "sawblade"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s3r6a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

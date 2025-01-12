@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://elcsk0a4nfho"]
+
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/player.gd" id="1_6a8ux"]
+[ext_resource type="Texture2D" uid="uid://cxov8ieiycpki" path="res://FUZ/FuzMinigame3/player.png" id="1_m03w1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufu28"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5k4vb"]
+size = Vector2(34, 34)
+
+[sub_resource type="Curve" id="Curve_5d5vu"]
+_data = [Vector2(0.0175439, 1), 0.0, 0.0, 0, 0, Vector2(0.977528, 0.505494), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ta7vy"]
+colors = PackedColorArray(0.446838, 0, 0.0556114, 1, 0.212289, 0.0275039, 2.40654e-08, 1)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 17
+script = ExtResource("1_6a8ux")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("1_m03w1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ufu28")
+
+[node name="DownCastLeft" type="RayCast2D" parent="."]
+position = Vector2(-15, 0)
+target_position = Vector2(0, 24)
+collision_mask = 32
+
+[node name="DownCastRight" type="RayCast2D" parent="."]
+position = Vector2(15, 0)
+target_position = Vector2(0, 24)
+collision_mask = 32
+
+[node name="UpCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, -24)
+collision_mask = 32
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_5k4vb")
+
+[node name="GunPivot" type="Marker2D" parent="."]
+
+[node name="Target" type="Marker2D" parent="GunPivot"]
+position = Vector2(120, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="GunPivot/Target"]
+emitting = false
+amount = 10
+lifetime = 0.25
+speed_scale = 1.5
+explosiveness = 0.2
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_5d5vu")
+color_ramp = SubResource("Gradient_ta7vy")
+
+[node name="GunRayCast" type="RayCast2D" parent="GunPivot"]
+target_position = Vector2(120, 0)
+collision_mask = 64
+
+[node name="Beam" type="Line2D" parent="GunPivot"]
+visible = false
+z_index = -1
+points = PackedVector2Array(0, 0, 120, 0)
+width = 3.0
+default_color = Color(0.60185, 0, 0.115452, 0.654)
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

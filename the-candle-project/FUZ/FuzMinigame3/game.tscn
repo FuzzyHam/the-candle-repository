@@ -1,0 +1,152 @@
+[gd_scene load_steps=16 format=3 uid="uid://bfpmkjvturbc4"]
+
+[ext_resource type="PackedScene" uid="uid://elcsk0a4nfho" path="res://FUZ/FuzMinigame3/player.tscn" id="1_7uuwk"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/game.gd" id="1_rbx3v"]
+[ext_resource type="PackedScene" uid="uid://tkxlsj86w6pc" path="res://FUZ/FuzMinigame3/boundary.tscn" id="4_ildo8"]
+[ext_resource type="AudioStream" uid="uid://cp00dgalncod7" path="res://FUZ/FuzMinigame3/cave-pop.mp3" id="5_8pver"]
+[ext_resource type="FontFile" uid="uid://y0jekkj0p4yl" path="res://FUZ/FuzMinigame3/PixelOperator8.ttf" id="5_ocmdn"]
+[ext_resource type="AudioStream" uid="uid://dx3lmxthgsdgg" path="res://FUZ/FuzMinigame3/alt-cave-pop.mp3" id="6_o3adn"]
+[ext_resource type="Texture2D" uid="uid://cwm1kwkrucuh7" path="res://FUZ/FuzMinigame3/bounty.png" id="7_sdlw6"]
+[ext_resource type="PackedScene" uid="uid://b37kxoncshjd2" path="res://FUZ/FuzMinigame3/gradient.tscn" id="8_qkirt"]
+[ext_resource type="AudioStream" uid="uid://cw8njd1irvji5" path="res://FUZ/FuzMinigame3/laser.wav" id="9_ud1pf"]
+[ext_resource type="AudioStream" uid="uid://dwspybv4pcvw7" path="res://FUZ/FuzMinigame3/ore_gain.wav" id="10_c1xb3"]
+[ext_resource type="AudioStream" uid="uid://ccrjb2ypq73y7" path="res://FUZ/FuzMinigame3/hurt.wav" id="11_3eu7i"]
+[ext_resource type="AudioStream" uid="uid://bumsmjf4ti1nk" path="res://FUZ/FuzMinigame3/explosion.wav" id="12_sj326"]
+[ext_resource type="AudioStream" uid="uid://cd7hd7cts10vy" path="res://FUZ/FuzMinigame3/power_up.wav" id="13_vc51t"]
+[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="14_83mga"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpmpl"]
+size = Vector2(1152, 648)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_rbx3v")
+
+[node name="Player" parent="." instance=ExtResource("1_7uuwk")]
+position = Vector2(5, -227)
+
+[node name="StoneBlocks" type="Node" parent="."]
+
+[node name="GameCenter" type="Marker2D" parent="."]
+
+[node name="GameArea" type="Area2D" parent="GameCenter"]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameCenter/GameArea"]
+shape = SubResource("RectangleShape2D_bpmpl")
+
+[node name="Camera2D" type="Camera2D" parent="GameCenter"]
+
+[node name="Boundary" parent="GameCenter" instance=ExtResource("4_ildo8")]
+
+[node name="MoneyLabel" type="Label" parent="."]
+z_index = 10
+offset_left = 366.0
+offset_top = -303.0
+offset_right = 560.0
+offset_bottom = -279.0
+theme_override_fonts/font = ExtResource("5_ocmdn")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
+[node name="ComboLabel" type="Label" parent="."]
+z_index = 10
+offset_left = 365.0
+offset_top = -267.0
+offset_right = 559.0
+offset_bottom = -243.0
+theme_override_colors/font_color = Color(0.780886, 0.259732, 1, 1)
+theme_override_fonts/font = ExtResource("5_ocmdn")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
+[node name="LevelLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -130.0
+offset_top = 284.0
+offset_right = 145.0
+offset_bottom = 308.0
+theme_override_colors/font_color = Color(0.824814, 0, 0.314766, 1)
+theme_override_fonts/font = ExtResource("5_ocmdn")
+theme_override_font_sizes/font_size = 24
+text = "Level 0"
+horizontal_alignment = 1
+
+[node name="ComboBonusLabel" type="Label" parent="."]
+z_index = 10
+offset_left = 365.0
+offset_top = -236.0
+offset_right = 559.0
+offset_bottom = -212.0
+theme_override_colors/font_color = Color(0.585727, 0.000383602, 0.61988, 1)
+theme_override_fonts/font = ExtResource("5_ocmdn")
+theme_override_font_sizes/font_size = 18
+text = "x1.00"
+horizontal_alignment = 2
+
+[node name="Sawblades" type="Node" parent="."]
+
+[node name="Crawlers" type="Node" parent="."]
+
+[node name="HealthMarker" type="Marker2D" parent="."]
+position = Vector2(-543, -294)
+
+[node name="Music1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8pver")
+
+[node name="Music2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_o3adn")
+
+[node name="GoldRushTime" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+
+[node name="BountyTime" type="Timer" parent="."]
+wait_time = 12.0
+one_shot = true
+
+[node name="BountyIcon" type="Sprite2D" parent="."]
+visible = false
+z_index = 25
+position = Vector2(526, -162)
+scale = Vector2(2, 2)
+texture = ExtResource("7_sdlw6")
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -30
+
+[node name="Gradient" parent="Background" instance=ExtResource("8_qkirt")]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="LaserSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("9_ud1pf")
+
+[node name="OreGainSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("10_c1xb3")
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("11_3eu7i")
+
+[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("12_sj326")
+
+[node name="PowerUpSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("13_vc51t")
+
+[node name="LoadPlayer" type="Node2D" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("14_83mga")
+character = NodePath("../Player")
+sprite_node_name = "Sprite2D"
+
+[connection signal="crush_check" from="Player" to="." method="_on_player_crush_check"]
+[connection signal="hurt" from="Player" to="." method="_on_player_hurt"]
+[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="area_exited" from="GameCenter/GameArea" to="." method="_on_game_area_area_exited"]
+[connection signal="body_exited" from="GameCenter/GameArea" to="." method="_on_game_area_body_exited"]
+[connection signal="finished" from="Music1" to="." method="_on_music_1_finished"]
+[connection signal="finished" from="Music2" to="." method="_on_music_2_finished"]
+[connection signal="timeout" from="GoldRushTime" to="." method="_on_gold_rush_time_timeout"]
+[connection signal="timeout" from="BountyTime" to="." method="_on_bounty_time_timeout"]
