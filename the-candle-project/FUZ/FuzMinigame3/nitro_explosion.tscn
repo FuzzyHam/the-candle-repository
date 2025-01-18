@@ -7,14 +7,15 @@ _data = [Vector2(0.00561798, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505494), 0.0, 0.0,
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_rl7no"]
-colors = PackedColorArray(0, 0.89492, 0.218207, 1, 0, 0.512357, 0.0552819, 1)
+offsets = PackedFloat32Array(0, 0.4)
+colors = PackedColorArray(1, 1, 1, 1, 0.182475, 0.737275, 3.85046e-07, 1)
 
 [node name="NitroExplosion" type="Marker2D"]
 script = ExtResource("1_0f30y")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 80
+amount = 40
 lifetime = 3.0
 one_shot = true
 speed_scale = 10.0

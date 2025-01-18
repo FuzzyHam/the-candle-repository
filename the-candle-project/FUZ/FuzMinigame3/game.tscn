@@ -86,7 +86,7 @@ theme_override_font_sizes/font_size = 18
 text = "x1.00"
 horizontal_alignment = 2
 
-[node name="Sawblades" type="Node" parent="."]
+[node name="MovingObjects" type="Node" parent="."]
 
 [node name="Crawlers" type="Node" parent="."]
 
@@ -140,6 +140,8 @@ stream = ExtResource("13_vc51t")
 script = ExtResource("14_83mga")
 character = NodePath("../Player")
 sprite_node_name = "Sprite2D"
+
+[node name="MovingLabels" type="Node" parent="."]
 
 [connection signal="crush_check" from="Player" to="." method="_on_player_crush_check"]
 [connection signal="hurt" from="Player" to="." method="_on_player_hurt"]

@@ -4,7 +4,7 @@ extends Node2D
 @onready var boundary: StaticBody2D = $GameCenter/Boundary
 @onready var game_area: Area2D = $GameCenter/GameArea
 @onready var money_label: Label = $MoneyLabel
-@onready var sawblades: Node = $Sawblades
+@onready var moving_objects: Node = $MovingObjects
 @onready var crawlers: Node = $Crawlers
 @onready var health_marker: Marker2D = $HealthMarker
 @onready var music_1: AudioStreamPlayer2D = $Music1
@@ -22,6 +22,7 @@ extends Node2D
 @onready var power_up_sfx: AudioStreamPlayer2D = $SFX/PowerUpSFX
 @onready var load_player: Node2D = $LoadPlayer
 @onready var level_label: Label = $LevelLabel
+@onready var moving_labels: Node = $MovingLabels
 
 
 var scroll_speed = 1
@@ -93,12 +94,6 @@ func _ready() -> void:
 	
 	music_1.play()
 	
-	print(rarity_percent(0))
-	print(rarity_percent(1))
-	print(rarity_percent(2))
-	print(rarity_percent(3))
-	print(rarity_percent(4))
-	
 	load_player._on_load_character()
 	
 
@@ -111,13 +106,14 @@ func _physics_process(delta: float) -> void:
 		if bodies_chunk:
 			var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
 			if chunk_bottom - final_scroll_speed <= rect.end.y:
-				#print(bodies_chunk[9][0].global_position.y + 32 - final_scroll_speed + 1)
 				generate_chunk((chunk_bottom - final_scroll_speed + 1) - rect.end.y)
 		b.global_position.y -= final_scroll_speed
-	for sb in sawblades.get_children():	
+	for sb in moving_objects.get_children():	
 		sb.global_position.y -= final_scroll_speed
 	for bg in background.get_children():
 		bg.global_position.y -= final_scroll_speed
+	for ml in moving_labels.get_children():
+		ml.global_position.y -= final_scroll_speed
 		
 	if block_ready_count < 180 && bodies_chunk:
 		check_raycast_ready()
@@ -200,7 +196,7 @@ func _on_create_crawler(burrowing_crawler):
 	crawler.direction = burrowing_crawler.side
 	
 	crawlers.add_child(crawler)
-	sawblades.remove_child(burrowing_crawler)
+	moving_objects.remove_child(burrowing_crawler)
 	burrowing_crawler.queue_free()
 	
 func _on_crawler_die(crawler):
@@ -212,7 +208,6 @@ func _on_check_crawler_raycast(crawler, collider):
 			if collider.get_collision_layer_value(3):	
 				crawler.crawler_die.emit(crawler)
 	
-	
 func rarity_percent(rarity_index):
 	var sum = 0.0
 	var offset = 0.0
@@ -222,16 +217,33 @@ func rarity_percent(rarity_index):
 			offset += ore_rarity[r]
 	return (offset + ore_rarity[rarity_index]) / sum
 	
-func find_viable_spot(viable, moving, block_viable):
+func fit_range(viable, block_range):
+	var too_big = true
+	var sections = get_sections(viable)
+	var new_range = block_range
+	while too_big && new_range > 0:
+		for s in sections:
+			if s.size() >= new_range*2 + 1:
+				too_big = false
+		if too_big:
+			new_range -= 1
+	return new_range
+			
+			
+func remove_blocks_from_viable(viable, block_viable):
+	var copied_viable = viable.filter(func(v): return v)
+	var new_viable = viable.filter(func(v): return v)
+	if block_viable:
+		for v in copied_viable:
+			if !block_viable.has(v):
+				new_viable.pop_at(viable.find(v))
+	return new_viable
+	
+func get_sections(viable):
 	var sections = []
 	sections.append([])
 	var section_num = 0
 	var current_row = 0
-	var copied_viable = viable.filter(func(v): return v)
-	if block_viable:
-		for v in copied_viable:
-			if !block_viable.has(v):
-				viable.pop_at(viable.find(v))
 	for v in viable.size():
 		if viable[v][0] > current_row:
 			sections.append([])
@@ -242,23 +254,27 @@ func find_viable_spot(viable, moving, block_viable):
 				sections.append([])
 				section_num += 1
 		sections[section_num].append(viable[v])
+	return sections
+	
+func cut_object_from_viable(viable, spot, block_range):
+	var remove_start = -1
+	var new_viable = viable.filter(func(v): return v)
+	for v in viable.size():
+		if viable[v][0] == spot[0] && viable[v][1] == spot[1]:
+			remove_start = v - block_range
+	
+	for r in block_range*2 + 1:
+		new_viable.pop_at(remove_start)
+	return new_viable
+	
+func find_viable_spot(viable, block_range):
+	var sections = get_sections(viable)
 
 	var viable_sections = []
-	var block_range = 0
-	if moving:
-		block_range = round(randf() * 3) + 1
-	if moving:
-		while viable_sections.size() == 0 && block_range > 0:
-			for s in sections:
-				if s.size() >= block_range*2 + 1:
-					viable_sections.append(s)
-			if viable_sections.size() == 0:
-				block_range -= 1
-	if !moving:
-		for s in sections:
+	for s in sections:
+		if s.size() >= block_range*2 + 1:
 			viable_sections.append(s)
 	if viable_sections.size() == 0:
-		#do not create sawblade
 		return null
 	var r_section = round(randf() * (viable_sections.size() - 1))
 	var final_viable = []
@@ -267,169 +283,166 @@ func find_viable_spot(viable, moving, block_viable):
 			final_viable.append(viable_sections[r_section][v])
 	
 	var r_place = round(randf() * (final_viable.size() - 1))
-	var remove_start = -1
-	for v in viable.size():
-		if viable[v][0] == final_viable[r_place][0] && viable[v][1] == final_viable[r_place][1]:
-			remove_start = v - block_range
-	
-	for r in block_range*2 + 1:
-		viable.pop_at(remove_start)
 		
-	return {"spot": final_viable[r_place], "viable": viable, "block_range": block_range}
+	return final_viable[r_place]
 	
 func generate_chunk(yoffset):
 	#18, 10. 180 blocks
+	
+	##Create chunk 2D array starting with only stone
 	var chunk = []
 	for yy in 10:
 		var row = []
 		for xx in 18:
 			row.append("STONE")
 		chunk.append(row)
-	var block_viable = []
-	for yy in 10:
-		var row = []
-		for xx in 18:
-			row.append([yy, xx])
-		block_viable.append_array(row)
-	var bg_viable = block_viable.filter(func(v): return v[0] > 2 && v[0] < 7 && v[1] > 2 && v[1] < 15)
-	
-	var rbg = round(randf() * (bg_viable.size() - 1))
-	const BGELEMENT = preload("res://FUZ/FuzMinigame3/bg_element.tscn")
-	var new_bg =  BGELEMENT.instantiate()
-	var rect1 = game_area.get_node("CollisionShape2D").shape.get_rect()
-	var rbg_sprite = round(randf() * (new_bg.get_node("Sprites").get_children().size() - 1))
-	new_bg.get_node("Sprites").get_children()[rbg_sprite].visible = true
-	new_bg.global_position.x = rect1.position.x + (64 * bg_viable[rbg][1]) + 32
-	new_bg.global_position.y = rect1.end.y + (64 * bg_viable[rbg][0]) + 32 + yoffset
-	background.add_child(new_bg)
-	
-	const GRADIENT = preload("res://FUZ/FuzMinigame3/gradient.tscn")
-	var gradient =  GRADIENT.instantiate()
-	#var grad_rect = gradient.get_node("CollisionShape2D").get_rect()
-	gradient.global_position.x = 0
-	gradient.global_position.y = rect1.end.y + 648/2 + yoffset
-	if last_gradient_flipped:
-		last_gradient_flipped = false
-	else:
-		last_gradient_flipped = true
-	gradient.get_node("TextureRect").flip_v = last_gradient_flipped
-	print("gradient.global_position")
-	print(gradient.global_position)
-	background.add_child(gradient)
-	
-	for t in 25:
-		var r = round(randf() * (block_viable.size() - 1))
 		
-		var ore_roll = randf()
-		#print(ore_roll)
-		if ore_roll <= rarity_percent(0):
-			chunk[block_viable[r][0]][block_viable[r][1]] = "TOPAZ"
-		if ore_roll > rarity_percent(0) && ore_roll <= rarity_percent(1):
-			chunk[block_viable[r][0]][block_viable[r][1]] = "SAPPHIRE"
-		if ore_roll > rarity_percent(1) && ore_roll <= rarity_percent(2):
-			chunk[block_viable[r][0]][block_viable[r][1]] = "EMERALD"
-		if ore_roll > rarity_percent(2) && ore_roll <= rarity_percent(3):
-			chunk[block_viable[r][0]][block_viable[r][1]] = "RUBY"
-		if ore_roll > rarity_percent(3) && ore_roll <= rarity_percent(4):
-			chunk[block_viable[r][0]][block_viable[r][1]] = "DIAMOND"
-	for r in ore_rarity.size():	
-		ore_rarity[r] += ore_rarity_increase[level][r]
-	print("###")
-	print(ore_rarity)
-	print("###")
-	
-	for t in 10 + level:
-		var r = round(randf() * (block_viable.size() - 1))
-		chunk[block_viable[r][0]][block_viable[r][1]] = "MAGMA"
-		block_viable.pop_at(r)
-	#print(chunk)
-	
-	for n in 1 + floor(level*0.35):
-		var r_spawn = randf()
-		if r_spawn > 0.5:
-			var r = round(randf() * (block_viable.size() - 1))
-			chunk[block_viable[r][0]][block_viable[r][1]] = "NITRO"
-			block_viable.pop_at(r)
-	
-	for b in stone_blocks.get_children():
-		b.at_bottom = false
-		b.old_chunk = true
-	block_ready_count = 0
-	
+	##Viable represents an array of viable spots ([y, x]) to put new hazards and powerups in. 
+	## Newly created moving objects will have their position and positions covered by their range removed from viable so future objects do not overlap.
 	var viable = []
 	for yy in 10:
 		var row = []
 		for xx in 18:
 			row.append([yy, xx])
 		viable.append_array(row)
-	var moving_objects = []
+		
+	##Create background objects
+	var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
+	
+	var bg_viable = viable.filter(func(v): return v[0] > 2 && v[0] < 7 && v[1] > 2 && v[1] < 15)
+	var rbg = round(randf() * (bg_viable.size() - 1))
+	const BGELEMENT = preload("res://FUZ/FuzMinigame3/bg_element.tscn")
+	var new_bg =  BGELEMENT.instantiate()
+	var rbg_sprite = round(randf() * (new_bg.get_node("Sprites").get_children().size() - 1))
+	new_bg.get_node("Sprites").get_children()[rbg_sprite].visible = true
+	new_bg.global_position.x = rect.position.x + (64 * bg_viable[rbg][1]) + 32
+	new_bg.global_position.y = rect.end.y + (64 * bg_viable[rbg][0]) + 32 + yoffset
+	background.add_child(new_bg)
+	
+	
+	##Create background gradient
+	const GRADIENT = preload("res://FUZ/FuzMinigame3/gradient.tscn")
+	var gradient =  GRADIENT.instantiate()
+	gradient.global_position.x = 0
+	gradient.global_position.y = rect.end.y + 648/2 + yoffset
+	if last_gradient_flipped:
+		last_gradient_flipped = false
+	else:
+		last_gradient_flipped = true
+	gradient.get_node("TextureRect").flip_v = last_gradient_flipped
+	background.add_child(gradient)
+	
+	
+	##Fill random spots in chunk 2D array with strings representing ores
+	for t in 25:
+		var r = round(randf() * (viable.size() - 1))
+		
+		var ore_roll = randf()
+		if ore_roll <= rarity_percent(0):
+			chunk[viable[r][0]][viable[r][1]] = "TOPAZ"
+		if ore_roll > rarity_percent(0) && ore_roll <= rarity_percent(1):
+			chunk[viable[r][0]][viable[r][1]] = "SAPPHIRE"
+		if ore_roll > rarity_percent(1) && ore_roll <= rarity_percent(2):
+			chunk[viable[r][0]][viable[r][1]] = "EMERALD"
+		if ore_roll > rarity_percent(2) && ore_roll <= rarity_percent(3):
+			chunk[viable[r][0]][viable[r][1]] = "RUBY"
+		if ore_roll > rarity_percent(3) && ore_roll <= rarity_percent(4):
+			chunk[viable[r][0]][viable[r][1]] = "DIAMOND"
+			
+	##Increase rarity of ore
+	for r in ore_rarity.size():	
+		ore_rarity[r] += ore_rarity_increase[level][r]
+	print("###ORE RARITY")
+	print(ore_rarity)
+	print("###")
+	
+	##Fill random spots left in chunk 2D array with magma and nitro blocks
+	for t in 10 + level:
+		var r = round(randf() * (viable.size() - 1))
+		chunk[viable[r][0]][viable[r][1]] = "MAGMA"
+		viable.pop_at(r)
+	
+	for n in 1 + floor(level*0.25):
+		var r_spawn = randf()
+		if r_spawn > 0.5:
+			var r = round(randf() * (viable.size() - 1))
+			chunk[viable[r][0]][viable[r][1]] = "NITRO"
+			viable.pop_at(r)
+	
+	##Make the bottom blocks know they can drip magma now
+	for b in stone_blocks.get_children():
+		b.at_bottom = false
+		b.old_chunk = true
+
+	block_ready_count = 0
+	
+	##viable = remove_blocks_from_viable(viable, block_viable)
+		
+	##Create data for moving hazards
+	var moving = []
 	for sb in 2 + floor(0.35*level):
 		var r_select = round(randf())
 		if r_select == 0:
-			moving_objects.append("sawblade")
+			moving.append("sawblade")
 		if r_select == 1:
-			moving_objects.append("crawler")
-	print(moving_objects)
+			moving.append("crawler")
 	
+	##Create data for the powerup
 	var random_powerup = randf()
 	if random_powerup <= 0.2:
-		moving_objects.append("apple")
+		moving.append("apple")
 	if random_powerup > 0.2 && random_powerup <= 0.4:
-		moving_objects.append("gold_rush")
+		moving.append("gold_rush")
 	if random_powerup > 0.4 && random_powerup <= 0.6:
-		moving_objects.append("bounty")
+		moving.append("bounty")
 		
-	
-	for movingx in moving_objects:
-		var spot_dict
-		if movingx == "apple" || movingx == "gold_rush" || movingx == "bounty":
-			spot_dict = find_viable_spot(viable, false, block_viable)
-		else:
-			spot_dict = find_viable_spot(viable, true, null)
+	##Create actual instances of the moving hazards and powerups
+	for moving_obj in moving:
+		var block_range = fit_range(viable, round(randf() * 3) + 1)
+		if moving_obj == "apple" || moving_obj == "gold_rush" || moving_obj == "bounty":
+			block_range = 0
 		
-		var spot = spot_dict["spot"]
-		var block_range = spot_dict["block_range"]
-		viable = spot_dict["viable"]
+		var spot = find_viable_spot(viable, block_range)
+		viable = cut_object_from_viable(viable, spot, block_range)
 		
 		var moving_object = null
-		if movingx == "sawblade":
+		if moving_obj == "sawblade":
 			const SAWBLADE = preload("res://FUZ/FuzMinigame3/sawblade.tscn")
 			moving_object = SAWBLADE.instantiate()
-		if movingx == "crawler":
+		if moving_obj == "crawler":
 			const CRAWLER = preload("res://FUZ/FuzMinigame3/crawler_burrowing.tscn")
 			moving_object = CRAWLER.instantiate()
 			moving_object.create_crawler.connect(_on_create_crawler)
-		if movingx == "apple":
+		if moving_obj == "apple":
 			const POWERUP = preload("res://FUZ/FuzMinigame3/power_up.tscn")
 			moving_object = POWERUP.instantiate()
 			moving_object.powerup_get.connect(_on_apple_get)
-		if movingx == "gold_rush":
+		if moving_obj == "gold_rush":
 			const POWERUP = preload("res://FUZ/FuzMinigame3/power_up.tscn")
 			moving_object = POWERUP.instantiate()
 			moving_object.powerup_get.connect(_on_gold_rush_get)
 			moving_object.get_node("Apple").visible = false
 			moving_object.get_node("GoldRush").visible = true
-		if movingx == "bounty":
+		if moving_obj == "bounty":
 			const POWERUP = preload("res://FUZ/FuzMinigame3/power_up.tscn")
 			moving_object = POWERUP.instantiate()
 			moving_object.powerup_get.connect(_on_bounty_get)
 			moving_object.get_node("Apple").visible = false
 			moving_object.get_node("Bounty").visible = true
-		var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
 		moving_object.global_position.x = rect.position.x + (64 * spot[1]) + 32
 		moving_object.global_position.y = rect.end.y + (64 * spot[0]) + 32 + yoffset
 		if block_range != 0:
 			moving_object.range = 64 * block_range
-		sawblades.add_child(moving_object)
+		moving_objects.add_child(moving_object)
 	
+	##Create actual instances of blocks from the chunk 2D array data
 	bodies_chunk = []
-	chunk_bottom = rect1.end.y + (64 * 9) + 64 + yoffset
+	chunk_bottom = rect.end.y + (64 * 9) + 64 + yoffset
 	for yy in 10:
 		bodies_chunk.append([])
 		for xx in 18:
 			const BLOCK = preload("res://FUZ/FuzMinigame3/stone_block.tscn")
 			var new_block =  BLOCK.instantiate()
-			var rect = game_area.get_node("CollisionShape2D").shape.get_rect()
 			new_block.global_position.x = rect.position.x + (64 * xx) + 32
 			new_block.global_position.y = rect.end.y + (64 * yy) + 32 + yoffset
 			
@@ -484,18 +497,13 @@ func generate_chunk(yoffset):
 			bodies_chunk[yy].append(new_block)
 			
 			stone_blocks.add_child(new_block)
-	#print(bodies_chunk)
+	
+	##Progress the level
 	chunk_count += 1
-	print("chunkcount")
-	print(chunk_count)
 	if chunk_count == 3 && level < 12:
 		level += 1
-		if level == 12:
-			scroll_speed = 1.5
 		chunk_count = 0
 		level_label.text = "Level " + str(level)
-		print("level")
-		print(level)
 		
 func _on_apple_get(apple):
 	power_up_sfx.play()
@@ -567,7 +575,6 @@ func _on_ore_gain(block):
 		base_money += 20
 		combo += 1
 	combo += 1
-	print(str(get_combo_multiplier()))		
 	print("+$" + str(base_money*get_combo_multiplier() - base_money))	
 	base_money = round(base_money*get_combo_multiplier())
 	combo_label.text = str(combo)
@@ -577,6 +584,13 @@ func _on_ore_gain(block):
 		base_money *= 3.0
 	money += base_money
 	money_label.text = str(money)
+	
+	const MONEYGAIN = preload("res://FUZ/FuzMinigame3/money_gain.tscn")
+	var new_money_gain = MONEYGAIN.instantiate()
+	new_money_gain.global_position.x = block.global_position.x
+	new_money_gain.global_position.y = block.global_position.y - 32
+	new_money_gain.get_node("MoneyGainLabel").text = "+" + str(base_money)
+	moving_labels.add_child(new_money_gain)
 
 func _on_player_crush_check() -> void:
 	var bottom
@@ -586,10 +600,7 @@ func _on_player_crush_check() -> void:
 		bottom = player.down_cast_left.get_collision_point().y
 	var top = player.up_cast.get_collision_point().y
 	
-	#print(str(bottom - top))
-	
 	if (bottom - scroll_speed) - top <= 32:
-		print("CRUSH!")
 		player.queue_free()
 		reset_game.emit()
 
@@ -630,7 +641,6 @@ func _on_player_shoot() -> void:
 
 
 func _on_game_area_area_exited(area: Area2D) -> void:
-	#print(area)
 	area.queue_free()
 	
 

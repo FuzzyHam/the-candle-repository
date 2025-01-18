@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc144f4efo38p"]
+
+[ext_resource type="FontFile" uid="uid://y0jekkj0p4yl" path="res://FUZ/FuzMinigame3/PixelOperator8.ttf" id="1_krqp7"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/money_gain.gd" id="2_vj0ix"]
+
+[node name="MoneyGain" type="Marker2D"]
+
+[node name="MoneyGainLabel" type="Label" parent="."]
+z_index = 20
+offset_left = -21.0
+offset_top = -11.0
+offset_right = 21.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_krqp7")
+text = "+10"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_vj0ix")
