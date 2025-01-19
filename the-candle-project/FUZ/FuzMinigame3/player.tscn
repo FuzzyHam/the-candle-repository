@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://elcsk0a4nfho"]
+[gd_scene load_steps=8 format=3 uid="uid://elcsk0a4nfho"]
 
 [ext_resource type="Script" path="res://FUZ/FuzMinigame3/player.gd" id="1_6a8ux"]
 [ext_resource type="Texture2D" uid="uid://cxov8ieiycpki" path="res://FUZ/FuzMinigame3/player.png" id="1_m03w1"]
+[ext_resource type="Texture2D" uid="uid://cbeeht2jn1gmu" path="res://FUZ/FuzMinigame3/crown.png" id="3_f14sx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufu28"]
 size = Vector2(32, 32)
@@ -78,5 +79,11 @@ z_index = -1
 points = PackedVector2Array(0, 0, 120, 0)
 width = 3.0
 default_color = Color(0.60185, 0, 0.115452, 0.654)
+
+[node name="Crown" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(0, -30)
+texture = ExtResource("3_f14sx")
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

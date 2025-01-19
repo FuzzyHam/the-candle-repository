@@ -23,6 +23,7 @@ extends Node2D
 @onready var load_player: Node2D = $LoadPlayer
 @onready var level_label: Label = $LevelLabel
 @onready var moving_labels: Node = $MovingLabels
+@onready var goal_label: Label = $GoalLabel
 
 
 var scroll_speed = 1
@@ -352,9 +353,9 @@ func generate_chunk(yoffset):
 	##Increase rarity of ore
 	for r in ore_rarity.size():	
 		ore_rarity[r] += ore_rarity_increase[level][r]
-	print("###ORE RARITY")
+	print("###ORE RARITY###")
 	print(ore_rarity)
-	print("###")
+	print("################")
 	
 	##Fill random spots left in chunk 2D array with magma and nitro blocks
 	for t in 10 + level:
@@ -380,7 +381,7 @@ func generate_chunk(yoffset):
 		
 	##Create data for moving hazards
 	var moving = []
-	for sb in 2 + floor(0.35*level):
+	for sb in 1 + floor(0.35*level):
 		var r_select = round(randf())
 		if r_select == 0:
 			moving.append("sawblade")
@@ -591,6 +592,10 @@ func _on_ore_gain(block):
 	new_money_gain.global_position.y = block.global_position.y - 32
 	new_money_gain.get_node("MoneyGainLabel").text = "+" + str(base_money)
 	moving_labels.add_child(new_money_gain)
+	
+	if money >= 10000 && !player.get_node("Crown").visible:
+		player.get_node("Crown").visible = true
+		goal_label.add_theme_color_override("font_color", Color(0, 1, 0))
 
 func _on_player_crush_check() -> void:
 	var bottom
@@ -601,8 +606,8 @@ func _on_player_crush_check() -> void:
 	var top = player.up_cast.get_collision_point().y
 	
 	if (bottom - scroll_speed) - top <= 32:
-		player.queue_free()
-		reset_game.emit()
+		get_tree().reload_current_scene()
+		#reset_game.emit()
 
 func delete_block(body):
 	body.queue_free()
@@ -656,13 +661,12 @@ func _on_player_hurt(amount) -> void:
 	display_health()
 	if amount < 0:
 		hurt_sfx.play()
-		#combo = round(float(combo) * 0.5)
 		combo = 0
 		combo_label.text = "x" + str(combo)
 		combo_bonus_label.text = "x" + str(get_combo_multiplier()).substr(0, 4)
 	if health <= 0:
-		reset_game.emit()
-		pass
+		get_tree().reload_current_scene()
+		#reset_game.emit()
 
 
 func _on_music_1_finished() -> void:

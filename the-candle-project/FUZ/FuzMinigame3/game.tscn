@@ -50,6 +50,17 @@ theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 
+[node name="GoalLabel" type="Label" parent="."]
+z_index = 10
+offset_left = 344.0
+offset_top = -186.0
+offset_right = 554.0
+offset_bottom = -162.0
+theme_override_fonts/font = ExtResource("5_ocmdn")
+theme_override_font_sizes/font_size = 12
+text = "Goal: 10000"
+horizontal_alignment = 2
+
 [node name="ComboLabel" type="Label" parent="."]
 z_index = 10
 offset_left = 365.0
@@ -110,7 +121,7 @@ one_shot = true
 [node name="BountyIcon" type="Sprite2D" parent="."]
 visible = false
 z_index = 25
-position = Vector2(526, -162)
+position = Vector2(523, -121)
 scale = Vector2(2, 2)
 texture = ExtResource("7_sdlw6")
 
