@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://80pu5n51i0cg"]
+
+[ext_resource type="Texture2D" uid="uid://jrbk4xfemaip" path="res://FUZ/FuzMinigame3/stone.png" id="1_csktt"]
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/stone_block.gd" id="1_y3lwd"]
+[ext_resource type="Texture2D" uid="uid://d1lp22n24obvi" path="res://FUZ/FuzMinigame3/topaz-block.png" id="2_25v2n"]
+[ext_resource type="Texture2D" uid="uid://7cmww3fgm1j4" path="res://FUZ/FuzMinigame3/magma-block.png" id="3_cv4y0"]
+[ext_resource type="Texture2D" uid="uid://cicdaaluhnsg4" path="res://FUZ/FuzMinigame3/sapphire-block.png" id="4_0l6h0"]
+[ext_resource type="Texture2D" uid="uid://d1gkql1ik3urw" path="res://FUZ/FuzMinigame3/emerald-block.png" id="5_2fqi1"]
+[ext_resource type="Texture2D" uid="uid://cmcyamseusqgl" path="res://FUZ/FuzMinigame3/ruby-block.png" id="6_6cvdb"]
+[ext_resource type="Texture2D" uid="uid://d3jg74rcblu44" path="res://FUZ/FuzMinigame3/diamond-block.png" id="7_23fdq"]
+[ext_resource type="Texture2D" uid="uid://byn2vjna3kr81" path="res://FUZ/FuzMinigame3/nitro-block.png" id="9_ow10t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qoawq"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tvmyl"]
+radius = 93.0013
+
+[node name="StoneBlock" type="AnimatableBody2D"]
+z_index = -1
+position = Vector2(328, 160)
+scale = Vector2(2, 2)
+collision_layer = 235
+script = ExtResource("1_y3lwd")
+
+[node name="StoneBlock" type="Sprite2D" parent="."]
+texture = ExtResource("1_csktt")
+
+[node name="TopazBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_25v2n")
+
+[node name="SapphireBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_0l6h0")
+
+[node name="EmeraldBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_2fqi1")
+
+[node name="RubyBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("6_6cvdb")
+
+[node name="DiamondBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("7_23fdq")
+
+[node name="MagmaBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_cv4y0")
+
+[node name="NitroBlock" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("9_ow10t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qoawq")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 22)
+collision_mask = 2
+
+[node name="NitroRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NitroRadius"]
+shape = SubResource("CircleShape2D_tvmyl")

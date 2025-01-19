@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://srfj4fnqooeo"]
+
+[ext_resource type="Texture2D" uid="uid://winmgas3yiso" path="res://FUZ/FuzMinigame3/BG-mineshaft.png" id="1_brrok"]
+[ext_resource type="Texture2D" uid="uid://b4hujf02ms7rm" path="res://FUZ/FuzMinigame3/BG-ravine.png" id="2_hltqx"]
+[ext_resource type="Texture2D" uid="uid://ik4xkgocr2ub" path="res://FUZ/FuzMinigame3/BG-crystal-lake.png" id="3_bgs3y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxa6n"]
+size = Vector2(245, 188)
+
+[node name="BackgroundElement" type="Area2D"]
+z_index = -30
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, 32)
+shape = SubResource("RectangleShape2D_wxa6n")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="MineShaft" type="Sprite2D" parent="Sprites"]
+visible = false
+position = Vector2(1, -1)
+texture = ExtResource("1_brrok")
+
+[node name="Ravine" type="Sprite2D" parent="Sprites"]
+visible = false
+texture = ExtResource("2_hltqx")
+
+[node name="CrystalLake" type="Sprite2D" parent="Sprites"]
+visible = false
+texture = ExtResource("3_bgs3y")

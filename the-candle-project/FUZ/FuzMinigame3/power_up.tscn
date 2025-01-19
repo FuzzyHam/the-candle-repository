@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmjxah8ryckge"]
+
+[ext_resource type="Script" path="res://FUZ/FuzMinigame3/apple.gd" id="1_kx0j7"]
+[ext_resource type="Texture2D" uid="uid://g61fg1oh6hnj" path="res://FUZ/FuzMinigame3/apple.png" id="2_a2b80"]
+[ext_resource type="Texture2D" uid="uid://bmgu585bf53o" path="res://FUZ/FuzMinigame3/gold-rush.png" id="3_dxhuy"]
+[ext_resource type="Texture2D" uid="uid://cwm1kwkrucuh7" path="res://FUZ/FuzMinigame3/bounty.png" id="4_j24s5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_suy4k"]
+
+[node name="PowerUp" type="Area2D"]
+z_index = 10
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_kx0j7")
+
+[node name="Apple" type="Sprite2D" parent="."]
+texture = ExtResource("2_a2b80")
+
+[node name="GoldRush" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_dxhuy")
+
+[node name="Bounty" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_j24s5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 3)
+shape = SubResource("CircleShape2D_suy4k")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
