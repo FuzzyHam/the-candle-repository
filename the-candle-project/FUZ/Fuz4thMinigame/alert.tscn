@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3migspej7t1c"]
+
+[ext_resource type="Script" path="res://alert.gd" id="1_bo40r"]
+[ext_resource type="Texture2D" uid="uid://fusx1fcu8tfl" path="res://FUZ/Fuz4thMinigame/warning.png" id="2_4ydou"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fp5pp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4ydou")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Alert" type="Marker2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_bo40r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fp5pp")
+autoplay = "default"
+frame_progress = 0.0414033

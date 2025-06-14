@@ -1,12 +1,12 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://dvcugg2mf43f0"]
 
 [ext_resource type="Script" path="res://MAIN/combined_sprites.gd" id="1_rqqtd"]
-[ext_resource type="Texture2D" path="res://MAIN/CharacterCreator/Skin1.png" id="2_woupd"]
-[ext_resource type="Texture2D" path="res://MAIN/CharacterCreator/Shape2.png" id="3_dte61"]
-[ext_resource type="Texture2D" path="res://MAIN/CharacterCreator/Mouth5.png" id="4_dhfl5"]
-[ext_resource type="Texture2D" path="res://MAIN/CharacterCreator/Nose1.png" id="5_hkxgi"]
-[ext_resource type="Texture2D" path="res://MAIN/CharacterCreator/Eyes6.png" id="6_00kl2"]
-[ext_resource type="Texture2D" path="res://MAIN/CharacterCreator/Eyebrows3.png" id="7_h5pkm"]
+[ext_resource type="Texture2D" uid="uid://bo0fbecifcwae" path="res://MAIN/CharacterCreator/Skin1.png" id="2_woupd"]
+[ext_resource type="Texture2D" uid="uid://cueka52r75jva" path="res://MAIN/CharacterCreator/Shape2.png" id="3_dte61"]
+[ext_resource type="Texture2D" uid="uid://254o8721s6e" path="res://MAIN/CharacterCreator/Mouth5.png" id="4_dhfl5"]
+[ext_resource type="Texture2D" uid="uid://c1or5rg4lcoi6" path="res://MAIN/CharacterCreator/Nose1.png" id="5_hkxgi"]
+[ext_resource type="Texture2D" uid="uid://bjo5uhc3kjo00" path="res://MAIN/CharacterCreator/Eyes6.png" id="6_00kl2"]
+[ext_resource type="Texture2D" uid="uid://y4hqacqxhm6o" path="res://MAIN/CharacterCreator/Eyebrows3.png" id="7_h5pkm"]
 
 [node name="CombinedSprites" type="Node2D"]
 script = ExtResource("1_rqqtd")

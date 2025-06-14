@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://b46hfx52taygo"]
+
+[ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/falling_object.gd" id="1_4bmwm"]
+[ext_resource type="Texture2D" uid="uid://dcxywusbrph5o" path="res://FUZ/Fuz4thMinigame/bomb-1.png" id="1_mtb3x"]
+[ext_resource type="Texture2D" uid="uid://q6lgnvrywpiy" path="res://FUZ/Fuz4thMinigame/bomb-2.png" id="2_4afot"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s7vgn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mtb3x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4afot")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6v5x"]
+size = Vector2(23, 20)
+
+[node name="FallingObject" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_4bmwm")
+
+[node name="Bomb" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_s7vgn")
+autoplay = "default"
+frame_progress = 0.165973
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 2)
+shape = SubResource("RectangleShape2D_k6v5x")

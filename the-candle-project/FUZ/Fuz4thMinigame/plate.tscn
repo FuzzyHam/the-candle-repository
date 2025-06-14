@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bimhywqj8gces"]
+
+[ext_resource type="Texture2D" uid="uid://dpl6hd8h8gyw1" path="res://FUZ/Fuz4thMinigame/plate.png" id="1_nknd4"]
+[ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/plate.gd" id="1_on1p4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_761cv"]
+size = Vector2(30, 5.5)
+
+[node name="Plate" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_on1p4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nknd4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_761cv")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
