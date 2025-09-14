@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -425.0
+const SPEED = 500.0
+const JUMP_VELOCITY = -450.0
 var weight_limit = 5.0
 var weight = 0.0
 
 signal ball_score
 signal bounce_bomb
 signal player_hurt
+signal catch_object
 
 @onready var left_plate: Area2D = $LeftPlate
 @onready var right_plate: Area2D = $RightPlate
@@ -18,12 +19,13 @@ func _ready():
 	left_plate.global_position.y = global_position.y
 	right_plate.global_position.y = global_position.y
 	update_weight_label()
+	
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
 	var direction := Input.get_axis("move_left", "move_right")
@@ -36,20 +38,26 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func _on_left_plate_catch_ball(weight_value) -> void:
-	weight -= weight_value
+func _on_left_plate_catch_ball(ball) -> void:
+	if !left_plate.has_weight_immunity:
+		weight -= ball.weight_value
+	if left_plate.has_weight_immunity:
+		weight -= round(ball.weight_value/2)
 	if weight < -weight_limit:
 		hurt()
 	move_plates()
-	ball_score.emit(weight_value)
+	ball_score.emit(ball)
 
 
-func _on_right_plate_catch_ball(weight_value) -> void:
-	weight += weight_value
+func _on_right_plate_catch_ball(ball) -> void:
+	if !right_plate.has_weight_immunity:
+		weight += ball.weight_value
+	if right_plate.has_weight_immunity:
+		weight += round(ball.weight_value/2)
 	if weight > weight_limit:
 		hurt()
 	move_plates()
-	ball_score.emit(weight_value)
+	ball_score.emit(ball)
 	
 func hurt():
 	const BASE_HEALTH_LOSS = 1.0
@@ -79,25 +87,27 @@ func move_plates():
 
 
 func _on_left_plate_catch_object(area) -> void:
-	on_catch_object(area)
+	catch_object.emit(area, left_plate)
 
 
 func _on_right_plate_catch_object(area) -> void:
-	on_catch_object(area)
-	
-func on_catch_object(area):
-	if area.type == "bomb":
-		player_hurt.emit(-10.0)
-		print("dead")
-	
-
+	catch_object.emit(area, right_plate)
 
 func _on_head_box_area_entered(area: Area2D) -> void:
 	if area.type == "bomb":
 		area.direction = Vector2.UP
 		area.speed = 400
-		bounce_bomb.emit()
+		bounce_bomb.emit(area)
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	player_hurt.emit(-2.5)
+
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	if area.type == "shuriken":
+		if area.boss:
+			player_hurt.emit(-1.0)
+		if !area.boss:
+			player_hurt.emit(-2.5)
+	area.queue_free()

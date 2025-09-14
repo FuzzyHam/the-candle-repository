@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b46hfx52taygo"]
+[gd_scene load_steps=8 format=3 uid="uid://b46hfx52taygo"]
 
 [ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/falling_object.gd" id="1_4bmwm"]
 [ext_resource type="Texture2D" uid="uid://dcxywusbrph5o" path="res://FUZ/Fuz4thMinigame/bomb-1.png" id="1_mtb3x"]
 [ext_resource type="Texture2D" uid="uid://q6lgnvrywpiy" path="res://FUZ/Fuz4thMinigame/bomb-2.png" id="2_4afot"]
+[ext_resource type="Texture2D" uid="uid://ckcy1vgvv27vi" path="res://FUZ/Fuz4thMinigame/weight_immunity.png" id="4_pebfg"]
+[ext_resource type="Texture2D" uid="uid://bgp7cg2thnkg3" path="res://FUZ/Fuz4thMinigame/paycheck.png" id="5_of8rg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s7vgn"]
 animations = [{
@@ -35,3 +37,11 @@ frame_progress = 0.165973
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 2)
 shape = SubResource("RectangleShape2D_k6v5x")
+
+[node name="WeightImmunity" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_pebfg")
+
+[node name="PayCheck" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_of8rg")

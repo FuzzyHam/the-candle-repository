@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dofnomqo624ro"]
+
+[ext_resource type="FontFile" uid="uid://bpsekiqeav6qq" path="res://FUZ/Fuz4thMinigame/PixelOperator8.ttf" id="1_0w6jl"]
+[ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/score_boost.gd" id="1_ibjpy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r34m"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="ScoreBoost" type="Marker2D"]
+z_index = 20
+script = ExtResource("1_ibjpy")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -27.0
+offset_top = -9.0
+offset_right = 39.0
+offset_bottom = 14.0
+theme_override_fonts/font = ExtResource("1_0w6jl")
+text = "1.25x"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -142.0
+offset_top = 19.0
+offset_right = 143.0
+offset_bottom = 29.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_4r34m")
+max_value = 750.0
+value = 299.81
+show_percentage = false

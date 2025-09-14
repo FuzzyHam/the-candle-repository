@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://hl2imtx5fvst"]
+
+[ext_resource type="Texture2D" uid="uid://cr8b4s8x025qk" path="res://FUZ/Fuz4thMinigame/smoke-1.png" id="1_j7bf7"]
+[ext_resource type="Texture2D" uid="uid://cryjbqjch6tcr" path="res://FUZ/Fuz4thMinigame/smoke-2.png" id="2_pxmg7"]
+[ext_resource type="Texture2D" uid="uid://cleh1vieviq8p" path="res://FUZ/Fuz4thMinigame/smoke-3.png" id="3_wk3gw"]
+[ext_resource type="Texture2D" uid="uid://c4sj88tbljsnp" path="res://FUZ/Fuz4thMinigame/smoke-4.png" id="4_qhbko"]
+[ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/smoke_bomb.gd" id="5_p8cno"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dh2ds"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j7bf7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pxmg7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wk3gw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qhbko")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Smoke Bomb" type="AnimatedSprite2D"]
+z_index = 6
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_dh2ds")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("5_p8cno")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3u30iiw1grhi"]
+
+[ext_resource type="Texture2D" uid="uid://bc2x3ryhbyqy3" path="res://FUZ/Fuz4thMinigame/check.png" id="1_pl7vf"]
+
+[node name="Check" type="Sprite2D"]
+z_index = 2
+position = Vector2(0, -2)
+texture = ExtResource("1_pl7vf")

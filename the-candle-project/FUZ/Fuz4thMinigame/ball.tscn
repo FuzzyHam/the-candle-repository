@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://ce16cf75jv3dd"]
+[gd_scene load_steps=11 format=3 uid="uid://ce16cf75jv3dd"]
 
-[ext_resource type="Texture2D" uid="uid://de8m0ltf1wt1f" path="res://FUZ/Fuz4thMinigame/ball.png" id="1_vavo2"]
 [ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/ball.gd" id="1_wqqn3"]
 [ext_resource type="FontFile" uid="uid://bpsekiqeav6qq" path="res://FUZ/Fuz4thMinigame/PixelOperator8.ttf" id="2_k8alh"]
-[ext_resource type="Texture2D" uid="uid://d4dlikpsjtp2o" path="res://FUZ/Fuz4thMinigame/ball-2.png" id="3_gfu28"]
-[ext_resource type="Texture2D" uid="uid://dkknr01h8jpsw" path="res://FUZ/Fuz4thMinigame/ball-3.png" id="4_vefri"]
+[ext_resource type="Texture2D" uid="uid://qyx8gt8jh21j" path="res://FUZ/Fuz4thMinigame/muffin.png" id="3_odf6n"]
+[ext_resource type="Texture2D" uid="uid://bk37n08bvuwpd" path="res://FUZ/Fuz4thMinigame/coffee.png" id="4_2htxc"]
+[ext_resource type="Texture2D" uid="uid://chne7lc271vl" path="res://FUZ/Fuz4thMinigame/bread.png" id="5_1fkfb"]
+[ext_resource type="Texture2D" uid="uid://dd5ojtmne0mpe" path="res://FUZ/Fuz4thMinigame/waffle.png" id="6_35gox"]
+[ext_resource type="Texture2D" uid="uid://drqcxv06a84iw" path="res://FUZ/Fuz4thMinigame/donut.png" id="7_sr7vl"]
+[ext_resource type="Texture2D" uid="uid://2daxnsjgd3vk" path="res://FUZ/Fuz4thMinigame/candy.png" id="8_74vbc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qyh8f"]
 
@@ -12,13 +15,22 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_vavo2")
+"texture": ExtResource("3_odf6n")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_gfu28")
+"texture": ExtResource("4_2htxc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_vefri")
+"texture": ExtResource("5_1fkfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_35gox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sr7vl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_74vbc")
 }],
 "loop": true,
 "name": &"default",
@@ -36,12 +48,13 @@ shape = SubResource("RectangleShape2D_qyh8f")
 
 [node name="Label" type="Label" parent="."]
 z_index = 1
-offset_left = -20.0
-offset_top = -6.66667
-offset_right = 20.0
-offset_bottom = 16.3333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+offset_left = -24.0
+offset_top = -29.0
+offset_right = 16.0
+offset_bottom = 3.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_k8alh")
+theme_override_font_sizes/font_size = 32
 text = "1"
 horizontal_alignment = 1
 

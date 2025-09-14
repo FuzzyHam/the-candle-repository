@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmfm8foksjeoc"]
+
+[ext_resource type="Texture2D" uid="uid://3dbidv0hsedg" path="res://FUZ/Fuz4thMinigame/player.png" id="1_g2o0f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sokxv"]
+size = Vector2(30, 30)
+
+[node name="PosterAvatar" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g2o0f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sokxv")

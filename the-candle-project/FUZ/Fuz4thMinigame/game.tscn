@@ -1,9 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh0gilykrhloh"]
+[gd_scene load_steps=28 format=3 uid="uid://dh0gilykrhloh"]
 
 [ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/game.gd" id="1_jf1w0"]
 [ext_resource type="PackedScene" uid="uid://b840npjmhs4er" path="res://FUZ/Fuz4thMinigame/player.tscn" id="1_tt5f4"]
 [ext_resource type="FontFile" uid="uid://bpsekiqeav6qq" path="res://FUZ/Fuz4thMinigame/PixelOperator8.ttf" id="3_m0q87"]
 [ext_resource type="AudioStream" uid="uid://px3xvsj5ldsp" path="res://FUZ/Fuz4thMinigame/limitFall.wav" id="4_27ewd"]
+[ext_resource type="PackedScene" uid="uid://bhwxom4boa18u" path="res://FUZ/Fuz4thMinigame/food_goal.tscn" id="5_gu1co"]
+[ext_resource type="AudioStream" uid="uid://pghu8um8o588" path="res://FUZ/Fuz4thMinigame/cafe-pop.mp3" id="6_hujxk"]
+[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="7_qlaoy"]
+[ext_resource type="Texture2D" uid="uid://dwtsuq52goqhj" path="res://FUZ/Fuz4thMinigame/chair.png" id="8_qaj57"]
+[ext_resource type="Texture2D" uid="uid://cpmtbh3f888a4" path="res://FUZ/Fuz4thMinigame/table.png" id="9_5ytnw"]
+[ext_resource type="Texture2D" uid="uid://nswes855e7a0" path="res://FUZ/Fuz4thMinigame/door.png" id="10_8p63a"]
+[ext_resource type="Texture2D" uid="uid://c5onh1hqlyffy" path="res://FUZ/Fuz4thMinigame/window.png" id="11_cllw7"]
+[ext_resource type="Texture2D" uid="uid://ci2bnion44prs" path="res://FUZ/Fuz4thMinigame/sign-3.png" id="12_stodu"]
+[ext_resource type="AudioStream" uid="uid://dsvjrhiaodkg8" path="res://FUZ/Fuz4thMinigame/pickupFood.wav" id="13_0ald7"]
+[ext_resource type="Texture2D" uid="uid://drinagyfwv8a2" path="res://FUZ/Fuz4thMinigame/postera-1.png" id="13_ql4x8"]
+[ext_resource type="AudioStream" uid="uid://ci5ug6hkqre0e" path="res://FUZ/Fuz4thMinigame/hurt.wav" id="14_8h4am"]
+[ext_resource type="Texture2D" uid="uid://cd0ggmruxy0af" path="res://FUZ/Fuz4thMinigame/posterb.png" id="14_bxeic"]
+[ext_resource type="Texture2D" uid="uid://f5kw4kwnthsl" path="res://FUZ/Fuz4thMinigame/postera-3.png" id="14_drq4n"]
+[ext_resource type="AudioStream" uid="uid://cvx5kshbrtrwb" path="res://FUZ/Fuz4thMinigame/pickupPowerup.wav" id="14_xdcvs"]
+[ext_resource type="Texture2D" uid="uid://cakmxexovg4yl" path="res://FUZ/Fuz4thMinigame/posterc-1.png" id="15_hkwfl"]
+[ext_resource type="AudioStream" uid="uid://dvpn1dv0ycq7b" path="res://FUZ/Fuz4thMinigame/smoke_bomb.wav" id="16_wdbxp"]
+[ext_resource type="Texture2D" uid="uid://c78jpkdhawr7y" path="res://FUZ/Fuz4thMinigame/posterc-2.png" id="17_ro5tl"]
+[ext_resource type="AudioStream" uid="uid://72vghs3q6j78" path="res://FUZ/Fuz4thMinigame/ninjaHit.wav" id="17_vl8rl"]
+[ext_resource type="PackedScene" uid="uid://bmfm8foksjeoc" path="res://FUZ/Fuz4thMinigame/poster_avatar.tscn" id="18_he443"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8sdrp"]
 distance = 1.0
@@ -35,7 +54,7 @@ shape = SubResource("WorldBoundaryShape2D_8sdrp")
 [node name="GameArea" type="Area2D" parent="GameCenter"]
 position = Vector2(1, -324)
 collision_layer = 0
-collision_mask = 15
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameCenter/GameArea"]
 visible = false
@@ -46,7 +65,7 @@ shape = SubResource("RectangleShape2D_8l6hw")
 [node name="Camera2D" type="Camera2D" parent="GameCenter"]
 
 [node name="WeightLimitLabel" type="Label" parent="."]
-z_index = 10
+z_index = 20
 offset_left = -94.0
 offset_top = 251.0
 offset_right = 96.0
@@ -58,7 +77,7 @@ text = "5"
 horizontal_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="."]
-z_index = 10
+z_index = 20
 offset_left = 250.0
 offset_top = 263.0
 offset_right = 556.0
@@ -69,11 +88,25 @@ theme_override_font_sizes/font_size = 36
 text = "Score: 0"
 horizontal_alignment = 2
 
+[node name="NinjaBonusLabel" type="Label" parent="."]
+visible = false
+z_index = 20
+offset_left = 245.0
+offset_top = 241.0
+offset_right = 551.0
+offset_bottom = 289.0
+theme_override_colors/font_color = Color(0.463887, 0.812063, 1.54018e-06, 1)
+theme_override_fonts/font = ExtResource("3_m0q87")
+theme_override_font_sizes/font_size = 12
+text = "Ninja: 1.25x"
+horizontal_alignment = 2
+
 [node name="IncreaseLimit" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 20
 offset_left = -547.0
 offset_top = 259.0
 offset_right = -162.0
@@ -95,11 +128,171 @@ wait_time = 7.0
 one_shot = true
 autostart = true
 
+[node name="FoodGoal" parent="." instance=ExtResource("5_gu1co")]
+position = Vector2(-502, -255)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -255)
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_hujxk")
+autoplay = true
+
+[node name="LoadPlayer" type="Node2D" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("7_qlaoy")
+character = NodePath("../Player")
+sprite_node_name = "Sprite2D"
+
+[node name="LoadPlayerPoster" type="Node2D" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("7_qlaoy")
+character = NodePath("../Background/PosterAvatar")
+sprite_node_name = "Sprite2D"
+
+[node name="PowerupSpawn" type="Timer" parent="."]
+wait_time = 25.0
+one_shot = true
+autostart = true
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -10
+
+[node name="TableGroup" type="Node2D" parent="Background"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/TableGroup"]
+position = Vector2(-379, 133)
+scale = Vector2(2, 2)
+texture = ExtResource("8_qaj57")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/TableGroup"]
+position = Vector2(-266, 133)
+scale = Vector2(2, 2)
+texture = ExtResource("9_5ytnw")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/TableGroup"]
+position = Vector2(-147, 125)
+scale = Vector2(2, 2)
+texture = ExtResource("8_qaj57")
+flip_h = true
+
+[node name="TableGroup2" type="Node2D" parent="Background"]
+position = Vector2(641, -9)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/TableGroup2"]
+position = Vector2(-379, 133)
+scale = Vector2(2, 2)
+texture = ExtResource("8_qaj57")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/TableGroup2"]
+position = Vector2(-266, 133)
+scale = Vector2(2, 2)
+texture = ExtResource("9_5ytnw")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/TableGroup2"]
+position = Vector2(-147, 125)
+scale = Vector2(2, 2)
+texture = ExtResource("8_qaj57")
+flip_h = true
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background"]
+position = Vector2(62, 63)
+scale = Vector2(3, 3)
+texture = ExtResource("10_8p63a")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Background"]
+position = Vector2(-288, -112)
+scale = Vector2(3, 3)
+texture = ExtResource("11_cllw7")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Background"]
+position = Vector2(59, -90)
+scale = Vector2(3, 3)
+texture = ExtResource("12_stodu")
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+z_index = -15
+offset_left = -580.0
+offset_top = -325.0
+offset_right = 598.0
+offset_bottom = 220.0
+color = Color(0.67461, 0.37139, 0.345937, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Background"]
+z_index = -14
+offset_left = -587.0
+offset_top = 157.0
+offset_right = 629.0
+offset_bottom = 332.0
+color = Color(0.56065, 0.305548, 0.233163, 1)
+
+[node name="BountyPoster" type="Sprite2D" parent="Background"]
+position = Vector2(272, -174)
+scale = Vector2(2, 2)
+texture = ExtResource("13_ql4x8")
+
+[node name="BountyPoster2" type="Sprite2D" parent="Background"]
+visible = false
+z_index = 1
+position = Vector2(272, -174)
+scale = Vector2(2, 2)
+texture = ExtResource("14_drq4n")
+
+[node name="EmployeePoster" type="Sprite2D" parent="Background"]
+position = Vector2(443, -171)
+scale = Vector2(2, 2)
+texture = ExtResource("14_bxeic")
+
+[node name="PosterAvatar" parent="Background" instance=ExtResource("18_he443")]
+visible = false
+position = Vector2(439, -148)
+
+[node name="SafetyPoster" type="Sprite2D" parent="Background"]
+position = Vector2(356, -17)
+scale = Vector2(2, 2)
+texture = ExtResource("15_hkwfl")
+
+[node name="SafetyPoster2" type="Sprite2D" parent="Background"]
+visible = false
+z_index = 1
+position = Vector2(356, -17)
+scale = Vector2(2, 2)
+texture = ExtResource("17_ro5tl")
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="PickupFoodSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("13_0ald7")
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("14_8h4am")
+
+[node name="PickupPowerupSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("14_xdcvs")
+
+[node name="SmokeBombSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("16_wdbxp")
+volume_db = -8.914
+
+[node name="NinjaHitSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("17_vl8rl")
+
+[node name="NinjaSpawn" type="Timer" parent="."]
+wait_time = 25.0
+one_shot = true
+autostart = true
+
+[node name="BossDeathTime" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="ball_score" from="Player" to="." method="_on_player_ball_score"]
 [connection signal="bounce_bomb" from="Player" to="." method="_on_player_bounce_bomb"]
-[connection signal="player_hurt" from="Player" to="." method="_on_player_player_hurt"]
+[connection signal="catch_object" from="Player" to="." method="_on_catch_object"]
+[connection signal="player_hurt" from="Player" to="." method="_on_player_hurt"]
 [connection signal="area_exited" from="GameCenter/GameArea" to="." method="_on_game_area_area_exited"]
 [connection signal="body_exited" from="GameCenter/GameArea" to="." method="_on_game_area_body_exited"]
 [connection signal="timeout" from="IncreaseLimit" to="." method="_on_increase_limit_timeout"]
 [connection signal="timeout" from="FallTimer" to="." method="_on_fall_timer_timeout"]
 [connection signal="timeout" from="DogTimer" to="." method="_on_dog_timer_timeout"]
+[connection signal="timeout" from="PowerupSpawn" to="." method="_on_powerup_spawn_timeout"]
+[connection signal="timeout" from="NinjaSpawn" to="." method="_on_ninja_spawn_timeout"]
+[connection signal="timeout" from="BossDeathTime" to="." method="_on_boss_death_time_timeout"]

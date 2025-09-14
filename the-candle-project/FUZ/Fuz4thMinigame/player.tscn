@@ -7,39 +7,42 @@
 [ext_resource type="Texture2D" uid="uid://fusx1fcu8tfl" path="res://FUZ/Fuz4thMinigame/warning.png" id="5_tqd2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i86wr"]
-size = Vector2(32, 32)
+size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6rl2"]
-size = Vector2(32, 6.5)
+size = Vector2(64, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4nw14"]
-size = Vector2(32, 32)
+size = Vector2(63, 64)
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(2, 2)
 collision_layer = 0
 script = ExtResource("1_6wpji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("2_qql88")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_i86wr")
 
 [node name="LeftPlate" parent="." instance=ExtResource("3_23bvf")]
-position = Vector2(-38, 0)
+position = Vector2(-78, -2)
+scale = Vector2(2, 2)
 
 [node name="RightPlate" parent="." instance=ExtResource("3_23bvf")]
-position = Vector2(40, 0)
+position = Vector2(75, 0)
+scale = Vector2(2, 2)
 
 [node name="WeightLabel" type="Label" parent="."]
 z_index = 8
-offset_left = -16.0
-offset_top = -46.0
-offset_right = 24.0
-offset_bottom = -23.0
+offset_left = -22.0
+offset_top = -71.0
+offset_right = 20.0
+offset_bottom = -47.0
 theme_override_colors/font_color = Color(6.73831e-07, 0.932416, 0.318866, 1)
 theme_override_fonts/font = ExtResource("4_cbo0e")
+theme_override_font_sizes/font_size = 24
 text = "+3"
 
 [node name="Warning" type="Sprite2D" parent="."]
@@ -54,7 +57,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadBox"]
-position = Vector2(0, -14.75)
+position = Vector2(0, -31.5)
 shape = SubResource("RectangleShape2D_a6rl2")
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -69,4 +72,5 @@ shape = SubResource("RectangleShape2D_4nw14")
 [connection signal="catch_ball" from="RightPlate" to="." method="_on_right_plate_catch_ball"]
 [connection signal="catch_object" from="RightPlate" to="." method="_on_right_plate_catch_object"]
 [connection signal="area_entered" from="HeadBox" to="." method="_on_head_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

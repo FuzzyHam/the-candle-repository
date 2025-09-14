@@ -3,6 +3,7 @@ extends Area2D
 var speed
 var direction
 var type
+var rebound = false
 
 signal object_sig
 

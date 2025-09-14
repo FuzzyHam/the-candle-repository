@@ -9,7 +9,7 @@ func _on_load_character() -> void:
 	var sprite = character.get_node(sprite_node_name)
 	
 	#scale new sprite to size of old sprite*scale of character 
-	newnode.scale = sprite.texture.get_size()/(newnode.get_child(1).texture.get_size()*character.scale)
+	newnode.scale = sprite.texture.get_size()*sprite.scale/(newnode.get_child(1).texture.get_size()*character.scale)
 	
 	#delete old sprite and add new one
 	sprite.queue_free()

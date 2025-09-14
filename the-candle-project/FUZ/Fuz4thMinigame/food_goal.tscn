@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhwxom4boa18u"]
+
+[ext_resource type="Texture2D" uid="uid://qyx8gt8jh21j" path="res://FUZ/Fuz4thMinigame/muffin.png" id="1_5js0r"]
+[ext_resource type="Texture2D" uid="uid://bk37n08bvuwpd" path="res://FUZ/Fuz4thMinigame/coffee.png" id="2_u3qjo"]
+[ext_resource type="Texture2D" uid="uid://chne7lc271vl" path="res://FUZ/Fuz4thMinigame/bread.png" id="3_mtscv"]
+[ext_resource type="FontFile" uid="uid://bpsekiqeav6qq" path="res://FUZ/Fuz4thMinigame/PixelOperator8.ttf" id="4_1ga16"]
+[ext_resource type="Texture2D" uid="uid://dd5ojtmne0mpe" path="res://FUZ/Fuz4thMinigame/waffle.png" id="4_apw8i"]
+[ext_resource type="Texture2D" uid="uid://drqcxv06a84iw" path="res://FUZ/Fuz4thMinigame/donut.png" id="5_sgarj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ef5ib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5js0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_u3qjo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mtscv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_apw8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sgarj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FoodGoal" type="Marker2D"]
+z_index = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ef5ib")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 49.0
+offset_top = -24.0
+offset_right = 91.0
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("4_1ga16")
+theme_override_font_sizes/font_size = 48
+text = "7"

@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://bimhywqj8gces"]
+[gd_scene load_steps=6 format=3 uid="uid://bimhywqj8gces"]
 
 [ext_resource type="Texture2D" uid="uid://dpl6hd8h8gyw1" path="res://FUZ/Fuz4thMinigame/plate.png" id="1_nknd4"]
 [ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/plate.gd" id="1_on1p4"]
+[ext_resource type="Texture2D" uid="uid://cmakkkvv5x83q" path="res://FUZ/Fuz4thMinigame/plate_gold.png" id="3_62avw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_761cv"]
 size = Vector2(30, 5.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gcaob"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nknd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_62avw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Plate" type="Area2D"]
 collision_layer = 0
@@ -12,10 +27,24 @@ collision_mask = 6
 script = ExtResource("1_on1p4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_nknd4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_761cv")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gcaob")
+
+[node name="WeightImmunityLifespan" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="WeightImmunityDeath" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="WeightImmunityLifespan" to="." method="_on_weight_immunity_lifespan_timeout"]
+[connection signal="timeout" from="WeightImmunityDeath" to="." method="_on_weight_immunity_death_timeout"]

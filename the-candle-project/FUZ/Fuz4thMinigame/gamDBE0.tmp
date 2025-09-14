@@ -1,0 +1,109 @@
+[gd_scene load_steps=10 format=3 uid="uid://dh0gilykrhloh"]
+
+[ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/game.gd" id="1_jf1w0"]
+[ext_resource type="PackedScene" uid="uid://b840npjmhs4er" path="res://FUZ/Fuz4thMinigame/player.tscn" id="1_tt5f4"]
+[ext_resource type="FontFile" uid="uid://bpsekiqeav6qq" path="res://FUZ/Fuz4thMinigame/PixelOperator8.ttf" id="3_m0q87"]
+[ext_resource type="AudioStream" uid="uid://px3xvsj5ldsp" path="res://FUZ/Fuz4thMinigame/limitFall.wav" id="4_27ewd"]
+[ext_resource type="PackedScene" uid="uid://bhwxom4boa18u" path="res://FUZ/Fuz4thMinigame/food_goal.tscn" id="5_gu1co"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8sdrp"]
+distance = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8l6hw"]
+size = Vector2(1152, 647.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tv2ux"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpke1"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_jf1w0")
+
+[node name="Player" parent="." instance=ExtResource("1_tt5f4")]
+z_index = 10
+position = Vector2(-2, -3)
+
+[node name="GameCenter" type="Marker2D" parent="."]
+
+[node name="Bottom" type="StaticBody2D" parent="GameCenter"]
+position = Vector2(-1, 228)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameCenter/Bottom"]
+shape = SubResource("WorldBoundaryShape2D_8sdrp")
+
+[node name="GameArea" type="Area2D" parent="GameCenter"]
+position = Vector2(1, -324)
+collision_layer = 0
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameCenter/GameArea"]
+visible = false
+position = Vector2(-1, 324.25)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_8l6hw")
+
+[node name="Camera2D" type="Camera2D" parent="GameCenter"]
+
+[node name="WeightLimitLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -94.0
+offset_top = 251.0
+offset_right = 96.0
+offset_bottom = 299.0
+theme_override_colors/font_color = Color(0.934831, 0.569511, 0, 1)
+theme_override_fonts/font = ExtResource("3_m0q87")
+theme_override_font_sizes/font_size = 48
+text = "5"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+z_index = 10
+offset_left = 250.0
+offset_top = 263.0
+offset_right = 556.0
+offset_bottom = 311.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_m0q87")
+theme_override_font_sizes/font_size = 36
+text = "Score: 0"
+horizontal_alignment = 2
+
+[node name="IncreaseLimit" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -547.0
+offset_top = 259.0
+offset_right = -162.0
+offset_bottom = 291.0
+theme_override_styles/background = SubResource("StyleBoxFlat_tv2ux")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gpke1")
+max_value = 10.0
+value = 10.0
+show_percentage = false
+
+[node name="LimitFallSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_27ewd")
+
+[node name="FallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DogTimer" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+autostart = true
+
+[node name="FoodGoal" parent="." instance=ExtResource("5_gu1co")]
+position = Vector2(-502, -255)
+
+[connection signal="ball_score" from="Player" to="." method="_on_player_ball_score"]
+[connection signal="bounce_bomb" from="Player" to="." method="_on_player_bounce_bomb"]
+[connection signal="player_hurt" from="Player" to="." method="_on_player_player_hurt"]
+[connection signal="area_exited" from="GameCenter/GameArea" to="." method="_on_game_area_area_exited"]
+[connection signal="body_exited" from="GameCenter/GameArea" to="." method="_on_game_area_body_exited"]
+[connection signal="timeout" from="IncreaseLimit" to="." method="_on_increase_limit_timeout"]
+[connection signal="timeout" from="FallTimer" to="." method="_on_fall_timer_timeout"]
+[connection signal="timeout" from="DogTimer" to="." method="_on_dog_timer_timeout"]

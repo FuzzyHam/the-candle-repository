@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4x524ox2k0k2"]
+
+[ext_resource type="Script" path="res://FUZ/Fuz4thMinigame/ninja.gd" id="1_a16km"]
+[ext_resource type="Texture2D" uid="uid://wx7kadjfgoed" path="res://FUZ/Fuz4thMinigame/ninja-1.png" id="1_hutgb"]
+[ext_resource type="Texture2D" uid="uid://ykixfdsmnyt" path="res://FUZ/Fuz4thMinigame/ninja-2.png" id="2_pifys"]
+[ext_resource type="Texture2D" uid="uid://b1oclil3j15f2" path="res://FUZ/Fuz4thMinigame/grand-ninja.png" id="4_prn0v"]
+[ext_resource type="Texture2D" uid="uid://cw68a4igtg52k" path="res://FUZ/Fuz4thMinigame/ninja-dead.png" id="4_xr14u"]
+[ext_resource type="Texture2D" uid="uid://c16xtjroww8o3" path="res://FUZ/Fuz4thMinigame/grand-ninja-2.png" id="5_phji1"]
+[ext_resource type="Texture2D" uid="uid://jrj4skmpxb3q" path="res://FUZ/Fuz4thMinigame/grand-ninja-dead.png" id="7_g14w2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y31ih"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hutgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hutgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hutgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_hutgb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pifys")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xr14u")
+}],
+"loop": true,
+"name": &"default_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_prn0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_prn0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_prn0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_phji1")
+}],
+"loop": true,
+"name": &"grand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_g14w2")
+}],
+"loop": true,
+"name": &"grand-dead",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggva0"]
+size = Vector2(63, 65)
+
+[node name="Ninja" type="Area2D"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_a16km")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_y31ih")
+autoplay = "default"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ggva0")
+
+[node name="NinjaLifespan" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="NinjaLifespan" to="." method="_on_ninja_lifespan_timeout"]
