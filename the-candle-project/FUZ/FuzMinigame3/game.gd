@@ -32,7 +32,6 @@ var game_height = 0
 var bodies_chunk
 var money = 0
 var health = 5
-var block_ready_count = -1
 
 var ore_rarity = [1, 0.30, 0.1, 0.01, 0.001]
 var ore_rarity_increase = []
@@ -116,8 +115,8 @@ func _physics_process(delta: float) -> void:
 	for ml in moving_labels.get_children():
 		ml.global_position.y -= final_scroll_speed
 		
-	if block_ready_count < 180 && bodies_chunk:
-		check_raycast_ready()
+	#if block_ready_count < 180 && bodies_chunk:
+	#	check_raycast_ready()
 	
 	magma_drip()
 	
@@ -157,17 +156,20 @@ func check_raycast_ready():
 	for yy in 10:
 		for xx in 18:
 			var block = bodies_chunk[yy][xx]
+			if !block:
+				#block_ready_count += 1
+				continue
 			if (block.ray_cast_2d.is_colliding() || block.at_bottom) && !block.ray_cast_is_ready:
 				block.ray_cast_is_ready = true
-				block_ready_count += 1
+				#block_ready_count += 1
 
 func magma_drip():
 	for b in stone_blocks.get_children():
 		if b.block_type == "MAGMA" && !b.ray_cast_2d.is_colliding():
 			if b.at_bottom:
 				continue
-			if block_ready_count != 180:
-				continue
+			#if block_ready_count != 180:
+			#	continue
 			if b.lava_drip_time <= 0:
 				const DROP = preload("res://FUZ/FuzMinigame3/lava_drop.tscn")
 				var new_drop = DROP.instantiate()
@@ -374,8 +376,6 @@ func generate_chunk(yoffset):
 	for b in stone_blocks.get_children():
 		b.at_bottom = false
 		b.old_chunk = true
-
-	block_ready_count = 0
 	
 	##viable = remove_blocks_from_viable(viable, block_viable)
 		
