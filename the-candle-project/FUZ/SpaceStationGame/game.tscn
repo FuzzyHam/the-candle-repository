@@ -1,10 +1,10 @@
 [gd_scene load_steps=28 format=3 uid="uid://vwnfdvurumlv"]
 
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/game.gd" id="1_ihp1m"]
+[ext_resource type="Script" uid="uid://bp17a57omslbj" path="res://FUZ/SpaceStationGame/game.gd" id="1_ihp1m"]
 [ext_resource type="PackedScene" uid="uid://cs27pyiu450qi" path="res://FUZ/SpaceStationGame/player.tscn" id="1_y15ks"]
 [ext_resource type="Texture2D" uid="uid://dlieqfyvmu51e" path="res://FUZ/SpaceStationGame/bg-fixed.png" id="4_qo6e1"]
 [ext_resource type="PackedScene" uid="uid://caxkjr5f112ac" path="res://FUZ/SpaceStationGame/generator.tscn" id="5_pe7f2"]
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/health.gd" id="6_fp886"]
+[ext_resource type="Script" uid="uid://dq7kp5mvjiguj" path="res://FUZ/SpaceStationGame/health.gd" id="6_fp886"]
 [ext_resource type="PackedScene" uid="uid://bx7b8ixxmdvur" path="res://FUZ/SpaceStationGame/game_area.tscn" id="7_inata"]
 [ext_resource type="Texture2D" uid="uid://c00ytsd1ohj5a" path="res://FUZ/SpaceStationGame/asterioid-warning.png" id="9_6l0ml"]
 [ext_resource type="Texture2D" uid="uid://dn2opomtu4nkm" path="res://FUZ/SpaceStationGame/alert.png" id="10_a6b4s"]
@@ -22,7 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://blg653yesdo7b" path="res://FUZ/SpaceStationGame/pickupCoin.wav" id="20_f4eiv"]
 [ext_resource type="AudioStream" uid="uid://bycisbw6a6yg1" path="res://FUZ/SpaceStationGame/laserShoot.wav" id="21_nt38x"]
 [ext_resource type="AudioStream" uid="uid://c3shv4x08tgd8" path="res://FUZ/SpaceStationGame/click.wav" id="22_8qc6d"]
-[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="23_k3iex"]
+[ext_resource type="Script" uid="uid://d15qlxg7rga5y" path="res://MAIN/character_loader.gd" id="23_k3iex"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q2p5d"]
 distance = -14.0

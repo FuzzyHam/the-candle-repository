@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr75vj0w6fttm"]
 
-[ext_resource type="Script" path="res://AG/AGMinigame1/upgrade_button.gd" id="1_kgh56"]
+[ext_resource type="Script" uid="uid://cxuksi7gpf3n5" path="res://AG/AGMinigame1/upgrade_button.gd" id="1_kgh56"]
 [ext_resource type="Texture2D" uid="uid://dy8818tfykxo4" path="res://AG/AGMinigame1/Upgrade1.png" id="2_f0k2j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssjwg"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bih15aum2a4qk"]
 
-[ext_resource type="Script" path="res://MAIN/combined_sprites.gd" id="1_mgyyw"]
+[ext_resource type="Script" uid="uid://yjc4fnh2rmiv" path="res://MAIN/combined_sprites.gd" id="1_mgyyw"]
 [ext_resource type="Texture2D" uid="uid://bo0fbecifcwae" path="res://MAIN/CharacterCreator/Skin1.png" id="2_7t4ct"]
-[ext_resource type="Script" path="res://MAIN/CharacterCreator/button_save.gd" id="5_v08d5"]
+[ext_resource type="Script" uid="uid://bmw7k72mce7su" path="res://MAIN/CharacterCreator/button_save.gd" id="5_v08d5"]
 [ext_resource type="Texture2D" uid="uid://drwc0p0w0w3mo" path="res://MAIN/CharacterCreator/Shape1.png" id="8_wqon8"]
 [ext_resource type="PackedScene" uid="uid://demy0hq6yt78r" path="res://MAIN/CharacterCreator/characterbutton.tscn" id="10_shy0e"]
 [ext_resource type="Texture2D" uid="uid://js0uc6aaqe6a" path="res://MAIN/CharacterCreator/CharacterBackground.png" id="11_r8kwa"]

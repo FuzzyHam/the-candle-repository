@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjvxq4dmb4t3y"]
 
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/base.gd" id="1_ev4n0"]
+[ext_resource type="Script" uid="uid://bmxkssayy7jyq" path="res://FUZ/FuzMinigame3/base.gd" id="1_ev4n0"]
 [ext_resource type="PackedScene" uid="uid://bfpmkjvturbc4" path="res://FUZ/FuzMinigame3/game.tscn" id="1_tfji2"]
 
 [node name="Base" type="Node2D"]

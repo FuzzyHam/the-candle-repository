@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://di3umsdhhqhbo"]
 
 [ext_resource type="Texture2D" uid="uid://s22f2bbo1e0r" path="res://FUZ/FuzMinigame2/water.png" id="1_1icru"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame2/water_boundary.gd" id="1_7show"]
+[ext_resource type="Script" uid="uid://dio8gj27c5moo" path="res://FUZ/FuzMinigame2/water_boundary.gd" id="1_7show"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y6mxm"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bmjxah8ryckge"]
 
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/apple.gd" id="1_kx0j7"]
+[ext_resource type="Script" uid="uid://qba4m2dfms47" path="res://FUZ/FuzMinigame3/apple.gd" id="1_kx0j7"]
 [ext_resource type="Texture2D" uid="uid://g61fg1oh6hnj" path="res://FUZ/FuzMinigame3/apple.png" id="2_a2b80"]
 [ext_resource type="Texture2D" uid="uid://bmgu585bf53o" path="res://FUZ/FuzMinigame3/gold-rush.png" id="3_dxhuy"]
 [ext_resource type="Texture2D" uid="uid://cwm1kwkrucuh7" path="res://FUZ/FuzMinigame3/bounty.png" id="4_j24s5"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1mlq6c6otms6"]
 
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/nitro_explosion.gd" id="1_0f30y"]
+[ext_resource type="Script" uid="uid://by6o7ihx5egmq" path="res://FUZ/FuzMinigame3/nitro_explosion.gd" id="1_0f30y"]
 
 [sub_resource type="Curve" id="Curve_msmli"]
 _data = [Vector2(0.00561798, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505494), 0.0, 0.0, 0, 0]

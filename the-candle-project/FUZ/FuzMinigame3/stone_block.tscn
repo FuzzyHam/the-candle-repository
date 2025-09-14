@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://80pu5n51i0cg"]
 
 [ext_resource type="Texture2D" uid="uid://jrbk4xfemaip" path="res://FUZ/FuzMinigame3/stone.png" id="1_csktt"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/stone_block.gd" id="1_y3lwd"]
+[ext_resource type="Script" uid="uid://dk2juc3qlav7u" path="res://FUZ/FuzMinigame3/stone_block.gd" id="1_y3lwd"]
 [ext_resource type="Texture2D" uid="uid://d1lp22n24obvi" path="res://FUZ/FuzMinigame3/topaz-block.png" id="2_25v2n"]
 [ext_resource type="Texture2D" uid="uid://7cmww3fgm1j4" path="res://FUZ/FuzMinigame3/magma-block.png" id="3_cv4y0"]
 [ext_resource type="Texture2D" uid="uid://cicdaaluhnsg4" path="res://FUZ/FuzMinigame3/sapphire-block.png" id="4_0l6h0"]

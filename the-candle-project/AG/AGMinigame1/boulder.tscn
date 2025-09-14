@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://8b0n4t5uvgrd"]
 
-[ext_resource type="Script" path="res://AG/AGMinigame1/boulder.gd" id="1_semin"]
+[ext_resource type="Script" uid="uid://bt3popjac5t8l" path="res://AG/AGMinigame1/boulder.gd" id="1_semin"]
 [ext_resource type="Texture2D" uid="uid://dw7mskgj82kjs" path="res://AG/AGMinigame1/Boulder.png" id="2_w0k47"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tspnd"]
@@ -32,7 +32,6 @@ visible = false
 shape = SubResource("CircleShape2D_8jufe")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 256
 collision_mask = 8
 
@@ -40,9 +39,8 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_j7531")
 
 [node name="Area2D2" type="Area2D" parent="."]
-visible = false
-collision_layer = 16
-collision_mask = 16
+collision_layer = 32784
+collision_mask = 32784
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D2"]
 shape = SubResource("CircleShape2D_n0iyu")

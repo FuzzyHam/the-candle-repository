@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d561eip6nwfa"]
 
 [ext_resource type="Texture2D" uid="uid://bwdo0qlf61bg6" path="res://FUZ/SpaceStationGame/bug-run-1.png" id="1_ffxih"]
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/bug.gd" id="1_xd805"]
+[ext_resource type="Script" uid="uid://c4alnxlbmjtlx" path="res://FUZ/SpaceStationGame/bug.gd" id="1_xd805"]
 [ext_resource type="Texture2D" uid="uid://btwkn7e35n023" path="res://FUZ/SpaceStationGame/bug-run-2.png" id="2_68ilv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nxxo"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://mg82ywl4vj3w"]
+
+[ext_resource type="Script" uid="uid://c3jx6smvwcgnt" path="res://AG/AGMinigame2/bullet_particle.gd" id="1_2tt61"]
+
+[sub_resource type="Gradient" id="Gradient_y7b7a"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.12987)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_47sft"]
+gradient = SubResource("Gradient_y7b7a")
+fill = 1
+fill_from = Vector2(0.490826, 0.495413)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Curve" id="Curve_y7b7a"]
+_data = [Vector2(0.676471, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dkdf6"]
+curve = SubResource("Curve_y7b7a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1jffx"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 15, 0)
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.3
+scale_max = 0.7
+alpha_curve = SubResource("CurveTexture_dkdf6")
+
+[node name="BulletParticle" type="GPUParticles2D"]
+z_index = -1
+emitting = false
+amount = 1
+texture = SubResource("GradientTexture2D_47sft")
+lifetime = 0.8
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_1jffx")
+script = ExtResource("1_2tt61")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dah8dsppsy53g"]
 
-[ext_resource type="Script" path="res://lava_drop.gd" id="1_jtajm"]
+[ext_resource type="Script" uid="uid://c4ocs16va0v80" path="res://lava_drop.gd" id="1_jtajm"]
 [ext_resource type="Texture2D" uid="uid://b42ysk7q8ea3k" path="res://FUZ/FuzMinigame3/lava_drop.png" id="2_btjil"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7jsof"]

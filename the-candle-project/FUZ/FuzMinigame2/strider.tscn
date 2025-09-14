@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5wvyikarycgc"]
 
 [ext_resource type="Texture2D" uid="uid://cui2b8xle2xes" path="res://FUZ/FuzMinigame2/strider.png" id="1_4cpq2"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame2/strider.gd" id="1_510ac"]
+[ext_resource type="Script" uid="uid://ds2dixaneacd8" path="res://FUZ/FuzMinigame2/strider.gd" id="1_510ac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lkxa3"]
 size = Vector2(6, 26)

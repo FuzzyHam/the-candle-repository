@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bc144f4efo38p"]
 
 [ext_resource type="FontFile" uid="uid://y0jekkj0p4yl" path="res://FUZ/FuzMinigame3/PixelOperator8.ttf" id="1_krqp7"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/money_gain.gd" id="2_vj0ix"]
+[ext_resource type="Script" uid="uid://5qpmwbc3nmh" path="res://FUZ/FuzMinigame3/money_gain.gd" id="2_vj0ix"]
 
 [node name="MoneyGain" type="Marker2D"]
 

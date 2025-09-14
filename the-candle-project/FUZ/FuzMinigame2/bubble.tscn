@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dk1a5w7mflksl"]
 
-[ext_resource type="Script" path="res://FUZ/FuzMinigame2/bubble.gd" id="1_uyr5c"]
+[ext_resource type="Script" uid="uid://d2ryrp40ivewg" path="res://FUZ/FuzMinigame2/bubble.gd" id="1_uyr5c"]
 [ext_resource type="Texture2D" uid="uid://cjvwbvbhr0yd8" path="res://FUZ/FuzMinigame2/bubble-base-1.png" id="2_pnjwt"]
 [ext_resource type="Texture2D" uid="uid://bmemjteyx2pkn" path="res://FUZ/FuzMinigame2/bubble-base-2.png" id="3_si0pi"]
 [ext_resource type="Texture2D" uid="uid://cpjwya1vlljw3" path="res://FUZ/FuzMinigame2/flower-1.png" id="4_a0ech"]

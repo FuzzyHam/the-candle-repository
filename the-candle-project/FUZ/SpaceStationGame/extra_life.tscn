@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkn8txwlccvm7"]
 
 [ext_resource type="Texture2D" uid="uid://c28odvmfglg0v" path="res://FUZ/SpaceStationGame/extra-life.png" id="1_rwxpo"]
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/extra_life.gd" id="1_vxsva"]
+[ext_resource type="Script" uid="uid://cvh0wn84b1rq3" path="res://FUZ/SpaceStationGame/extra_life.gd" id="1_vxsva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tyb76"]
 size = Vector2(31, 42)

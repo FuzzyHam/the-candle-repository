@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqu6yyl5b31bc"]
 
 [ext_resource type="Texture2D" uid="uid://cf27e7w528x5r" path="res://icon.svg" id="1_faukd"]
-[ext_resource type="Script" path="res://MAIN/CharacterCreator/test_character.gd" id="1_mjhg6"]
-[ext_resource type="Script" path="res://MAIN/CharacterCreator/LoadCharButton.gd" id="2_i5h0o"]
-[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="4_rvjuu"]
+[ext_resource type="Script" uid="uid://dynyavgbpyqno" path="res://MAIN/CharacterCreator/test_character.gd" id="1_mjhg6"]
+[ext_resource type="Script" uid="uid://417d00j5x7s4" path="res://MAIN/CharacterCreator/LoadCharButton.gd" id="2_i5h0o"]
+[ext_resource type="Script" uid="uid://d15qlxg7rga5y" path="res://MAIN/character_loader.gd" id="4_rvjuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qs4o"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c5af3oae071nf"]
 
 [ext_resource type="Texture2D" uid="uid://dremkjfvoa7gb" path="res://FUZ/SpaceStationGame/laser-fire-1.png" id="1_0bbet"]
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/laser.gd" id="1_12c5x"]
+[ext_resource type="Script" uid="uid://bi7b7gmbimw2b" path="res://FUZ/SpaceStationGame/laser.gd" id="1_12c5x"]
 [ext_resource type="Texture2D" uid="uid://co04p8guvlbmy" path="res://FUZ/SpaceStationGame/laser-fire-2.png" id="2_c7ons"]
 [ext_resource type="Texture2D" uid="uid://deiua36dlmyox" path="res://FUZ/SpaceStationGame/laser.png" id="3_83pj7"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://uesmno8s2ult"]
 
 [ext_resource type="PackedScene" uid="uid://18hqcc48bipb" path="res://FUZ/FuzMinigame2/player.tscn" id="1_3ye41"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame2/game.gd" id="1_crokp"]
+[ext_resource type="Script" uid="uid://bfqmycc811vaw" path="res://FUZ/FuzMinigame2/game.gd" id="1_crokp"]
 [ext_resource type="Texture2D" uid="uid://b80ybc65ur48g" path="res://FUZ/FuzMinigame2/lily-pad.png" id="2_uv82p"]
 [ext_resource type="Texture2D" uid="uid://2thekh2dtvx" path="res://FUZ/FuzMinigame2/lily-pad-2.png" id="3_kmw87"]
 [ext_resource type="PackedScene" uid="uid://8gmqeincxksf" path="res://FUZ/FuzMinigame2/boundary.tscn" id="3_tfimw"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cvobc2biib30u" path="res://FUZ/FuzMinigame2/health_display.tscn" id="7_ms4pr"]
 [ext_resource type="FontFile" uid="uid://2y3ehvxdqtn5" path="res://FUZ/FuzMinigame2/PixelOperator8.ttf" id="8_illwo"]
 [ext_resource type="AudioStream" uid="uid://binmvugpsee0o" path="res://FUZ/FuzMinigame2/bubble-bop-2.mp3" id="9_h1pgt"]
-[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="9_vxb5r"]
+[ext_resource type="Script" uid="uid://d15qlxg7rga5y" path="res://MAIN/character_loader.gd" id="9_vxb5r"]
 [ext_resource type="PackedScene" uid="uid://di3umsdhhqhbo" path="res://FUZ/FuzMinigame2/water_boundary.tscn" id="11_nlmua"]
 [ext_resource type="AudioStream" uid="uid://dpb8ega0bv62t" path="res://FUZ/FuzMinigame2/hurt.wav" id="12_f5cfn"]
 [ext_resource type="AudioStream" uid="uid://by3561by0c7de" path="res://FUZ/FuzMinigame2/shoot.wav" id="13_pyull"]
