@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://bfpmkjvturbc4"]
 
 [ext_resource type="PackedScene" uid="uid://elcsk0a4nfho" path="res://FUZ/FuzMinigame3/player.tscn" id="1_7uuwk"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/game.gd" id="1_rbx3v"]
+[ext_resource type="Script" uid="uid://ch6g7k6ytfahi" path="res://FUZ/FuzMinigame3/game.gd" id="1_rbx3v"]
 [ext_resource type="PackedScene" uid="uid://tkxlsj86w6pc" path="res://FUZ/FuzMinigame3/boundary.tscn" id="4_ildo8"]
 [ext_resource type="AudioStream" uid="uid://cp00dgalncod7" path="res://FUZ/FuzMinigame3/cave-pop.mp3" id="5_8pver"]
 [ext_resource type="FontFile" uid="uid://y0jekkj0p4yl" path="res://FUZ/FuzMinigame3/PixelOperator8.ttf" id="5_ocmdn"]
@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://ccrjb2ypq73y7" path="res://FUZ/FuzMinigame3/hurt.wav" id="11_3eu7i"]
 [ext_resource type="AudioStream" uid="uid://bumsmjf4ti1nk" path="res://FUZ/FuzMinigame3/explosion.wav" id="12_sj326"]
 [ext_resource type="AudioStream" uid="uid://cd7hd7cts10vy" path="res://FUZ/FuzMinigame3/power_up.wav" id="13_vc51t"]
-[ext_resource type="Script" path="res://MAIN/character_loader.gd" id="14_83mga"]
+[ext_resource type="Script" uid="uid://d15qlxg7rga5y" path="res://MAIN/character_loader.gd" id="14_83mga"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpmpl"]
 size = Vector2(1152, 648)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://danwc34x6gs15"]
 
-[ext_resource type="Script" path="res://MAIN/combined_sprites.gd" id="1_uswn0"]
+[ext_resource type="Script" uid="uid://yjc4fnh2rmiv" path="res://MAIN/combined_sprites.gd" id="1_uswn0"]
 [ext_resource type="Texture2D" uid="uid://bo0fbecifcwae" path="res://MAIN/CharacterCreator/Skin1.png" id="2_eruwk"]
 [ext_resource type="Texture2D" uid="uid://che2ndb2hbthm" path="res://MAIN/CharacterCreator/Shape3.png" id="3_syp2j"]
 [ext_resource type="Texture2D" uid="uid://254o8721s6e" path="res://MAIN/CharacterCreator/Mouth5.png" id="4_f4iu8"]

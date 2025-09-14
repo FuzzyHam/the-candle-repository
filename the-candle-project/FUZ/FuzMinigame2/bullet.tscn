@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://h0ma2p57klep"]
 
 [ext_resource type="Texture2D" uid="uid://dj50o5abml7g6" path="res://FUZ/FuzMinigame2/pea.png" id="1_bivfs"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame2/bullet.gd" id="1_qjemd"]
+[ext_resource type="Script" uid="uid://c1o70jj6qsgvp" path="res://FUZ/FuzMinigame2/bullet.gd" id="1_qjemd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpxk2"]
 radius = 8.0

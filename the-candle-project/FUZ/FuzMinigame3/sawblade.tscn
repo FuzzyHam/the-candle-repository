@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b4p5ec565px7h"]
 
 [ext_resource type="Texture2D" uid="uid://cjaeqjxb4oum" path="res://FUZ/FuzMinigame3/New Piskel.png" id="1_rk3if"]
-[ext_resource type="Script" path="res://FUZ/FuzMinigame3/sawblade.gd" id="1_uhyls"]
+[ext_resource type="Script" uid="uid://yfigaesvl8pd" path="res://FUZ/FuzMinigame3/sawblade.gd" id="1_uhyls"]
 [ext_resource type="Texture2D" uid="uid://ul80p8x0ej55" path="res://FUZ/FuzMinigame3/crawler.png" id="2_i7ner"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3okn"]

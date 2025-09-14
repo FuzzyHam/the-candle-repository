@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn4xj3bl78jyv"]
+
+[ext_resource type="Script" uid="uid://dnuwvw05kdd5m" path="res://AG/AGMinigame2/star.gd" id="1_448sv"]
+[ext_resource type="Texture2D" uid="uid://bywt64whsmhrb" path="res://AG/AGMinigame2/star1.png" id="2_4mo6w"]
+
+[node name="Star" type="Node2D"]
+script = ExtResource("1_448sv")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_4mo6w")

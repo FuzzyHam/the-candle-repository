@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cs27pyiu450qi"]
 
 [ext_resource type="Texture2D" uid="uid://dbvbi6d0thr0b" path="res://FUZ/SpaceStationGame/player.png" id="1_oj8xh"]
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/player.gd" id="1_vc1vn"]
+[ext_resource type="Script" uid="uid://bc3dc4ri1dltn" path="res://FUZ/SpaceStationGame/player.gd" id="1_vc1vn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b7frc"]
 size = Vector2(64, 64)

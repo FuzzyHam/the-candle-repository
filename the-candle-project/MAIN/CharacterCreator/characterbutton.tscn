@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://demy0hq6yt78r"]
 
-[ext_resource type="Script" path="res://MAIN/CharacterCreator/Button.gd" id="1_5d7tb"]
+[ext_resource type="Script" uid="uid://cb54aryuklf04" path="res://MAIN/CharacterCreator/Button.gd" id="1_5d7tb"]
 
 [node name="Button" type="Button"]
 offset_left = 477.0

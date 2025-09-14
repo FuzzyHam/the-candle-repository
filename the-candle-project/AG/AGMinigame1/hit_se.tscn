@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d25hivp3spafy"]
 
 [ext_resource type="AudioStream" uid="uid://c8w40dukl3hmc" path="res://AG/AGMinigame1/damage.wav" id="1_l2six"]
-[ext_resource type="Script" path="res://AG/AGMinigame1/hit_se.gd" id="2_nrf01"]
+[ext_resource type="Script" uid="uid://3y4hlihnw83" path="res://AG/AGMinigame1/hit_se.gd" id="2_nrf01"]
 
 [node name="hitSE" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_l2six")

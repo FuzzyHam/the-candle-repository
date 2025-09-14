@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://caxkjr5f112ac"]
 
-[ext_resource type="Script" path="res://FUZ/SpaceStationGame/generator.gd" id="1_27psw"]
+[ext_resource type="Script" uid="uid://catkn4dyqw06t" path="res://FUZ/SpaceStationGame/generator.gd" id="1_27psw"]
 [ext_resource type="Texture2D" uid="uid://b1thqu37ne4xh" path="res://FUZ/SpaceStationGame/generator.png" id="1_81otj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e64hl"]

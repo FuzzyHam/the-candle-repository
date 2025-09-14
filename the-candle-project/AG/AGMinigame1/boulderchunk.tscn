@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbcqr2d5j4jk7"]
 
 [ext_resource type="Texture2D" uid="uid://cn15iqicx6sli" path="res://AG/AGMinigame1/MiniAsteroids1.png" id="1_dqujy"]
-[ext_resource type="Script" path="res://AG/AGMinigame1/boulderchunk.gd" id="2_6l4nc"]
+[ext_resource type="Script" uid="uid://bybj4bm0hsp27" path="res://AG/AGMinigame1/boulderchunk.gd" id="2_6l4nc"]
 
 [sub_resource type="Curve" id="Curve_pqhj1"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.786667, 1), 0.0, 0.0, 0, 0, Vector2(0.966667, 0.648352), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
